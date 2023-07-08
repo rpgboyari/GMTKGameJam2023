@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1oh4peeh0w7g"]
+
+[ext_resource type="Script" path="res://Scripts/Heroes/Barbarian.gd" id="1_lgt8c"]
+[ext_resource type="Texture2D" uid="uid://cr5x2gprww0q1" path="res://Sprites/barbarianfront-Sheet.png" id="2_1mmdp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pblec"]
+radius = 7.99753
+height = 55.9827
+
+[node name="Barbarian" type="RigidBody2D"]
+script = ExtResource("1_lgt8c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5.96046e-08, 25)
+rotation = -1.54593
+shape = SubResource("CapsuleShape2D_pblec")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_1mmdp")
+hframes = 12

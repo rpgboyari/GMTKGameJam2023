@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyav7cb3i21f4"]
+
+[ext_resource type="Texture2D" uid="uid://cntdsa38nqpjq" path="res://Sprites/kinght.png" id="1_bsvw7"]
+
+[node name="Knight" type="RigidBody2D"]
+gravity_scale = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_bsvw7")

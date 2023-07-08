@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://b1oh4peeh0w7g"]
+
+[ext_resource type="Script" path="res://Scripts/Heroes/Barbarian.gd" id="1_lgt8c"]
+[ext_resource type="Texture2D" uid="uid://cr5x2gprww0q1" path="res://Sprites/barbarianfront-Sheet.png" id="2_1mmdp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pblec"]
+radius = 7.99753
+height = 55.9827
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtjg2"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfwfw"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfl1s"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4iho"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2kes"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5me05"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70hx8"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a34ff"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfqe1"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nuxq7"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwdaf"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2a68e"]
+atlas = ExtResource("2_1mmdp")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ovahl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtjg2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yfwfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfl1s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4iho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2kes")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5me05")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70hx8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a34ff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfqe1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nuxq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwdaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2a68e")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 30.0
+}]
+
+[node name="Barbarian" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_lgt8c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5.96046e-08, 25)
+rotation = -1.54593
+shape = SubResource("CapsuleShape2D_pblec")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ovahl")
+animation = &"walking"
