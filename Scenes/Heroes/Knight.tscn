@@ -93,7 +93,7 @@ height = 41.9135
 collision_mask = 2
 script = ExtResource("1_ul2h0")
 damage_negation = 1
-group_offset = Vector2(25, 20)
+group_right = true
 max_hp = 10
 damage = 2
 attack_time = 1.0
@@ -111,3 +111,4 @@ rotation = -1.50659
 shape = SubResource("CapsuleShape2D_nbtgq")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_mask = 2

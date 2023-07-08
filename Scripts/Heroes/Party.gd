@@ -86,7 +86,7 @@ func party_member_done_walking():
 	walking_progress += 1
 	print_debug(str(walking_progress) + " party members done walking")
 	if walking_progress > 3:
-		emit_signal("all_done_grouping")
+		emit_signal("all_done_walking")
 
 func _on_archer_damaged(damage):
 	group_damaged(damage)

@@ -3,6 +3,7 @@ class_name Entity extends CharacterBody2D
 signal damaged(damage)
 
 enum INDIVIDUAL_BEHAVIOR_STATE {WALKING, FIGHTING, IDLE}
+enum TEAM {HERO, VILLAIN}
 
 @onready var animator: AnimatedSprite2D = $AnimatedSprite2D
 #@onready var weapon = $Weapon
@@ -12,6 +13,7 @@ enum INDIVIDUAL_BEHAVIOR_STATE {WALKING, FIGHTING, IDLE}
 @export var attack_time: float
 @export var walk_speed: int
 @export var is_ranged: bool
+@export var team: TEAM
 
 var immediate_state: INDIVIDUAL_BEHAVIOR_STATE
 

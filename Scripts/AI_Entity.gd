@@ -11,7 +11,8 @@ var group_offset: Vector2
 
 var long_term_state
 
-var nearby_enemies = []
+var regions: Dictionary = {}
+var nearby_enemies: Dictionary = {}
 var target
 var destination
 
@@ -45,6 +46,44 @@ func _physics_process(delta):
 		pass
 	if long_term_state == INDIVIDUAL_BEHAVIOR_STATE.IDLE:
 		pass
+
+func add_nearby_enemy(enemy):
+	if !nearby_enemies[enemy]:
+		nearby_enemies[enemy] = 1
+	else:
+		nearby_enemies[enemy] += 1
+func subtract_nearby_enemy(enemy):
+	nearby_enemies[enemy] -= 1
+	if nearby_enemies[enemy] < 1:
+		nearby_enemies.erase(enemy)
+func enter_region(region: Region):
+	regions[region] = true
+	var region_enemies
+	match team:
+		TEAM.HERO:
+			region_enemies = region.villains
+			region.villain_entered.connect(_on_enemy_entered_region)
+			region.villain_exited.connect(_on_enemy_exited_region)
+		TEAM.VILLAIN:
+			region_enemies = region.heroes
+			region.hero_entered.connect(_on_enemy_entered_region)
+			region.hero_exited.connect(_on_enemy_exited_region)
+	for enemy in region_enemies:
+		add_nearby_enemy(enemy)
+func exit_region(region):
+	regions.erase(region)
+	var region_enemies
+	match team:
+		TEAM.HERO:
+			region_enemies = region.villains
+			region.villain_entered.disconnect(_on_enemy_entered_region)
+			region.villain_exited.disconnect(_on_enemy_exited_region)
+		TEAM.VILLAIN:
+			region_enemies = region.heroes
+			region.hero_entered.disconnect(_on_enemy_entered_region)
+			region.hero_exited.disconnect(_on_enemy_exited_region)
+	for enemy in region_enemies:
+		subtract_nearby_enemy(enemy)
 
 func enemy_value(enemy): #returns how valuable of a target 'enemy' would be, lower is better
 	assert(false)
@@ -80,6 +119,11 @@ func start_idling():
 	print_debug(str(self) + " started idling")
 	long_term_state = INDIVIDUAL_BEHAVIOR_STATE.IDLE
 	animator.play("idle")
+
+func _on_enemy_entered_region(enemy):
+	add_nearby_enemy(enemy)
+func _on_enemy_exited_region(enemy):
+	subtract_nearby_enemy(enemy)
 
 func _on_velocity_computed(safe_velocity):
 	#print_debug("safe velocity computed")

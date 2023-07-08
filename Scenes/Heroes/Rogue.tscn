@@ -113,7 +113,6 @@ height = 42.0469
 [node name="Rogue" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_g1vu1")
-group_offset = Vector2(-25, 20)
 max_hp = 8
 damage = 3
 attack_time = 1.0
@@ -130,3 +129,4 @@ rotation = -1.62416
 shape = SubResource("CapsuleShape2D_4bqcq")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_mask = 2

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://buitbcc0yhuot"]
 
 [ext_resource type="AudioStream" uid="uid://bhpmk6jowumb7" path="res://Music/Title_Theme.mp3" id="1_8fx0x"]
-[ext_resource type="Script" path="res://Scripts/AudioStreamPlayer.gd" id="2_kraer"]
+[ext_resource type="Script" path="res://Scripts/UI/AudioStreamPlayer.gd" id="2_wad4e"]
 [ext_resource type="Texture2D" uid="uid://bvt2wfr5nuyr4" path="res://Sprites/barbarianfront.png" id="3_1s2lv"]
-[ext_resource type="Script" path="res://Scripts/Start_Game.gd" id="4_v1tyb"]
+[ext_resource type="Script" path="res://Scripts/UI/Start_Game.gd" id="4_vltvt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rnpeu"]
 font_size = 64
@@ -19,7 +19,7 @@ grow_vertical = 2
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_8fx0x")
 autoplay = true
-script = ExtResource("2_kraer")
+script = ExtResource("2_wad4e")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -51,6 +51,6 @@ text = "PLAY"
 icon = ExtResource("3_1s2lv")
 icon_alignment = 1
 vertical_icon_alignment = 0
-script = ExtResource("4_v1tyb")
+script = ExtResource("4_vltvt")
 
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

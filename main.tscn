@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgwxwos27qi07"]
+[gd_scene load_steps=15 format=3 uid="uid://dgwxwos27qi07"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_7cpnr"]
 [ext_resource type="TileSet" uid="uid://bdydbnji6i4tq" path="res://Resources/keep_tileset.tres" id="1_ffqww"]
-[ext_resource type="Script" path="res://Scripts/AudioStreamPlayer.gd" id="4_2y41w"]
 [ext_resource type="PackedScene" uid="uid://klbbqwbyny2e" path="res://Scenes/Heroes/Party.tscn" id="4_2687l"]
+[ext_resource type="Script" path="res://Scripts/UI/AudioStreamPlayer.gd" id="4_fxcik"]
 [ext_resource type="AudioStream" uid="uid://m0ekt4i07dwu" path="res://Music/Dungeon Theme.wav" id="4_hwguf"]
+[ext_resource type="PackedScene" uid="uid://dknt1c21b0aji" path="res://Scenes/Region.tscn" id="6_ri8p5"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_urm8s"]
 vertices = PackedVector2Array(272, 624, 0, 624, 0, 560, 208, 560, 272, 176, 208, 400, 112, 400, 112, 432, 48, 432, 48, 272, 112, 272, 112, 304, 208, 304, 208, 112, 464, 112, 400, 176, 464, 208, 400, 272, 496, 272, 560, 208, 560, 304, 496, 368, 592, 368, 656, 304, 656, 400, 592, 464, 688, 464, 752, 400, 752, 496, 688, 560, 944, 560, 880, 496, 944, 400, 880, 80, 1136, 80, 1136, 144, 944, 144, 1040, 304, 1040, 272, 1104, 272, 1104, 432, 1040, 432, 1040, 400, 944, 304)
@@ -16,6 +17,24 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 32, 592, 0, 0, 0, 0, 240, 592, 0, 0, 0, 0, 240, 144, 0, 0, 0, 0, 432, 144, 0, 0, 0, 0, 432, 240, 0, 0, 0, 0, 528, 240, 0, 0, 0, 0, 528, 336, 0, 0, 0, 0, 624, 336, 0, 0, 0, 0, 624, 432, 0, 0, 0, 0, 720, 432, 0, 0, 0, 0, 720, 528, 0, 0, 0, 0, 912, 528, 0, 0, 0, 0, 912, 112, 0, 0, 0, 0, 1120, 112)
 }
 point_count = 14
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7xwl"]
+size = Vector2(288, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qah7t"]
+size = Vector2(96, 320)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xc727"]
+size = Vector2(256, 192)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jmskb"]
+size = Vector2(96, 320)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sebol"]
+size = Vector2(288, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wmri4"]
+size = Vector2(288, 288)
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
@@ -30,7 +49,7 @@ layer_0/tile_data = PackedInt32Array(720906, 196608, 1, 786443, 196608, 1, 78644
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_hwguf")
 autoplay = true
-script = ExtResource("4_2y41w")
+script = ExtResource("4_fxcik")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_urm8s")
@@ -57,6 +76,82 @@ tab_1/title = ""
 tab_2/title = ""
 tab_3/title = ""
 tab_4/title = ""
+
+[node name="Regions" type="Node2D" parent="."]
+visible = false
+
+[node name="Region" parent="Regions" instance=ExtResource("6_ri8p5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region"]
+position = Vector2(144, 592)
+shape = SubResource("RectangleShape2D_v7xwl")
+
+[node name="Region2" parent="Regions/Region" instance=ExtResource("6_ri8p5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region/Region2"]
+position = Vector2(240, 448)
+shape = SubResource("RectangleShape2D_qah7t")
+
+[node name="Region3" parent="Regions" instance=ExtResource("6_ri8p5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region3"]
+position = Vector2(160, 352)
+shape = SubResource("RectangleShape2D_xc727")
+
+[node name="Region4" parent="Regions/Region3" instance=ExtResource("6_ri8p5")]
+position = Vector2(832, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region3/Region4"]
+position = Vector2(160, 352)
+shape = SubResource("RectangleShape2D_xc727")
+
+[node name="Region5" parent="Regions" instance=ExtResource("6_ri8p5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region5"]
+position = Vector2(1008, 112)
+shape = SubResource("RectangleShape2D_v7xwl")
+
+[node name="Region6" parent="Regions" instance=ExtResource("6_ri8p5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region6"]
+position = Vector2(912, 224)
+shape = SubResource("RectangleShape2D_qah7t")
+
+[node name="Region7" parent="Regions" instance=ExtResource("6_ri8p5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region7"]
+position = Vector2(240, 256)
+shape = SubResource("RectangleShape2D_jmskb")
+
+[node name="Region9" parent="Regions" instance=ExtResource("6_ri8p5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region9"]
+position = Vector2(912, 416)
+shape = SubResource("RectangleShape2D_jmskb")
+
+[node name="Region8" parent="Regions" instance=ExtResource("6_ri8p5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region8"]
+position = Vector2(336, 144)
+shape = SubResource("RectangleShape2D_sebol")
+
+[node name="Region10" parent="Regions" instance=ExtResource("6_ri8p5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region10"]
+position = Vector2(816, 528)
+shape = SubResource("RectangleShape2D_sebol")
+
+[node name="Region11" parent="Regions" instance=ExtResource("6_ri8p5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region11"]
+position = Vector2(528, 240)
+shape = SubResource("RectangleShape2D_wmri4")
+
+[node name="Region12" parent="Regions" instance=ExtResource("6_ri8p5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region12"]
+position = Vector2(624, 432)
+shape = SubResource("RectangleShape2D_wmri4")
 
 [connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_finished"]
 [connection signal="tab_changed" from="TabBar" to="AudioStreamPlayer" method="_on_tab_bar_tab_changed"]
