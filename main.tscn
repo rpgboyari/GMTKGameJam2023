@@ -1,14 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgwxwos27qi07"]
+[gd_scene load_steps=8 format=3 uid="uid://dgwxwos27qi07"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_7cpnr"]
 [ext_resource type="TileSet" uid="uid://bdydbnji6i4tq" path="res://Resources/keep_tileset.tres" id="1_ffqww"]
+[ext_resource type="Script" path="res://Scripts/AudioStreamPlayer.gd" id="4_2y41w"]
 [ext_resource type="PackedScene" uid="uid://klbbqwbyny2e" path="res://Scenes/Heroes/Party.tscn" id="4_2687l"]
 [ext_resource type="AudioStream" uid="uid://m0ekt4i07dwu" path="res://Music/Dungeon Theme.wav" id="4_hwguf"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_urm8s"]
-vertices = PackedVector2Array(272, 624, 16, 624, 16, 560, 208, 560, 272, 176, 208, 400, 112, 400, 112, 432, 48, 432, 48, 272, 112, 272, 112, 304, 208, 304, 208, 112, 464, 112, 400, 176, 464, 208, 400, 272, 496, 272, 560, 208, 560, 304, 496, 368, 592, 368, 656, 304, 656, 400, 592, 464, 688, 464, 752, 400, 752, 496, 688, 560, 944, 560, 880, 496, 944, 400, 880, 80, 1136, 80, 1136, 144, 944, 144, 1040, 304, 1040, 272, 1104, 272, 1104, 432, 1040, 432, 1040, 400, 944, 304)
+vertices = PackedVector2Array(272, 624, 0, 624, 0, 560, 208, 560, 272, 176, 208, 400, 112, 400, 112, 432, 48, 432, 48, 272, 112, 272, 112, 304, 208, 304, 208, 112, 464, 112, 400, 176, 464, 208, 400, 272, 496, 272, 560, 208, 560, 304, 496, 368, 592, 368, 656, 304, 656, 400, 592, 464, 688, 464, 752, 400, 752, 496, 688, 560, 944, 560, 880, 496, 944, 400, 880, 80, 1136, 80, 1136, 144, 944, 144, 1040, 304, 1040, 272, 1104, 272, 1104, 432, 1040, 432, 1040, 400, 944, 304)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(9, 10, 11), PackedInt32Array(6, 9, 11, 5), PackedInt32Array(5, 11, 12), PackedInt32Array(4, 5, 12), PackedInt32Array(4, 12, 13), PackedInt32Array(4, 13, 14, 15), PackedInt32Array(15, 14, 16, 17), PackedInt32Array(18, 17, 16, 19), PackedInt32Array(18, 19, 20, 21), PackedInt32Array(22, 21, 20, 23), PackedInt32Array(22, 23, 24, 25), PackedInt32Array(26, 25, 24, 27), PackedInt32Array(26, 27, 28, 29), PackedInt32Array(30, 29, 28, 31), PackedInt32Array(32, 30, 31, 33), PackedInt32Array(33, 34, 35, 36), PackedInt32Array(37, 38, 39, 40), PackedInt32Array(40, 41, 42), PackedInt32Array(37, 40, 42, 43), PackedInt32Array(43, 42, 32), PackedInt32Array(43, 32, 33), PackedInt32Array(43, 33, 36)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(16, 624, 16, 560, 208, 560, 208, 400, 112, 400, 112, 432, 48, 432, 48, 272, 112, 272, 112, 304, 208, 304, 208, 112, 464, 112, 464, 208, 560, 208, 560, 304, 656, 304, 656, 400, 752, 400, 752, 496, 880, 496, 880, 80, 1136, 80, 1136, 144, 944, 144, 944, 304, 1040, 304, 1040, 272, 1104, 272, 1104, 432, 1040, 432, 1040, 400, 944, 400, 944, 560, 688, 560, 688, 464, 592, 464, 592, 368, 496, 368, 496, 272, 400, 272, 400, 176, 272, 176, 272, 624)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 624, 0, 560, 208, 560, 208, 400, 112, 400, 112, 432, 48, 432, 48, 272, 112, 272, 112, 304, 208, 304, 208, 112, 464, 112, 464, 208, 560, 208, 560, 304, 656, 304, 656, 400, 752, 400, 752, 496, 880, 496, 880, 80, 1136, 80, 1136, 144, 944, 144, 944, 304, 1040, 304, 1040, 272, 1104, 272, 1104, 432, 1040, 432, 1040, 400, 944, 400, 944, 560, 688, 560, 688, 464, 592, 464, 592, 368, 496, 368, 496, 272, 400, 272, 400, 176, 272, 176, 272, 624)])
 
 [sub_resource type="Curve2D" id="Curve2D_dssne"]
 _data = {
@@ -29,6 +30,7 @@ layer_0/tile_data = PackedInt32Array(720906, 196608, 1, 786443, 196608, 1, 78644
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_hwguf")
 autoplay = true
+script = ExtResource("4_2y41w")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_urm8s")
@@ -38,3 +40,23 @@ curve = SubResource("Curve2D_dssne")
 
 [node name="Party" parent="Path2D" instance=ExtResource("4_2687l")]
 position = Vector2(32, 592)
+rotates = false
+
+[node name="TabBar" type="TabBar" parent="."]
+offset_left = 1152.0
+offset_right = 1252.0
+offset_bottom = 30.0
+scale = Vector2(-1, 1)
+tab_alignment = 1
+scrolling_enabled = false
+drag_to_rearrange_enabled = true
+scroll_to_selected = false
+tab_count = 5
+tab_0/title = ""
+tab_1/title = ""
+tab_2/title = ""
+tab_3/title = ""
+tab_4/title = ""
+
+[connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_finished"]
+[connection signal="tab_changed" from="TabBar" to="AudioStreamPlayer" method="_on_tab_bar_tab_changed"]

@@ -1,6 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://cyav7cb3i21f4"]
+[gd_scene load_steps=15 format=3 uid="uid://cyav7cb3i21f4"]
 
 [ext_resource type="Texture2D" uid="uid://cjq1iss3kdayd" path="res://Sprites/kinght-Sheet.png" id="1_i68cb"]
+[ext_resource type="Script" path="res://Scripts/Heroes/Knight.gd" id="1_ul2h0"]
+[ext_resource type="Texture2D" uid="uid://cntdsa38nqpjq" path="res://Sprites/kinght.png" id="2_x781w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebdv6"]
+atlas = ExtResource("2_x781w")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dmsu"]
+atlas = ExtResource("2_x781w")
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_alpb3"]
 atlas = ExtResource("1_i68cb")
@@ -34,6 +44,22 @@ region = Rect2(384, 0, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ebdv6")
+}],
+"loop": true,
+"name": &"attacking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dmsu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_alpb3")
 }, {
 "duration": 1.0,
@@ -56,7 +82,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walking",
-"speed": 8.0
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nbtgq"]
@@ -64,12 +90,20 @@ radius = 8.98146
 height = 41.9135
 
 [node name="Knight" type="CharacterBody2D"]
+collision_mask = 2
+script = ExtResource("1_ul2h0")
+damage_negation = 1
+group_offset = Vector2(25, 20)
+max_hp = 10
+damage = 2
+attack_time = 1.0
+walk_speed = 80
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -26)
 sprite_frames = SubResource("SpriteFrames_swdet")
 animation = &"walking"
-autoplay = "walking"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3.8147e-06)
@@ -77,4 +111,3 @@ rotation = -1.50659
 shape = SubResource("CapsuleShape2D_nbtgq")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-avoidance_enabled = true

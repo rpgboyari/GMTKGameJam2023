@@ -1,7 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://b1oh4peeh0w7g"]
+[gd_scene load_steps=20 format=3 uid="uid://b1oh4peeh0w7g"]
 
 [ext_resource type="Script" path="res://Scripts/Heroes/Barbarian.gd" id="1_lgt8c"]
 [ext_resource type="Texture2D" uid="uid://cr5x2gprww0q1" path="res://Sprites/barbarianfront-Sheet.png" id="2_1mmdp"]
+[ext_resource type="Texture2D" uid="uid://bvt2wfr5nuyr4" path="res://Sprites/barbarianfront.png" id="2_be3ny"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0owq"]
+atlas = ExtResource("2_be3ny")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7pms"]
+atlas = ExtResource("2_be3ny")
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wtjg2"]
 atlas = ExtResource("2_1mmdp")
@@ -55,6 +64,22 @@ region = Rect2(704, 0, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_b0owq")
+}],
+"loop": true,
+"name": &"attacking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7pms")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_wtjg2")
 }, {
 "duration": 1.0,
@@ -92,7 +117,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walking",
-"speed": 30.0
+"speed": 15.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pblec"]
@@ -100,17 +125,22 @@ radius = 10.0218
 height = 60.0312
 
 [node name="Barbarian" type="CharacterBody2D"]
+collision_mask = 2
 script = ExtResource("1_lgt8c")
+group_offset = Vector2(25, -20)
+max_hp = 14
+damage = 1
+attack_time = 1.0
+walk_speed = 100
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -25)
 sprite_frames = SubResource("SpriteFrames_ovahl")
 animation = &"walking"
-autoplay = "walking"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.54593
 shape = SubResource("CapsuleShape2D_pblec")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-avoidance_enabled = true

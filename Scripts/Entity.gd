@@ -4,7 +4,7 @@ signal damaged(damage)
 
 enum INDIVIDUAL_BEHAVIOR_STATE {WALKING, FIGHTING, IDLE}
 
-@onready var animator = $AnimatedSprite2D
+@onready var animator: AnimatedSprite2D = $AnimatedSprite2D
 #@onready var weapon = $Weapon
 
 @export var max_hp: int
@@ -13,13 +13,20 @@ enum INDIVIDUAL_BEHAVIOR_STATE {WALKING, FIGHTING, IDLE}
 @export var walk_speed: int
 @export var is_ranged: bool
 
-var immediate_state
+var immediate_state: INDIVIDUAL_BEHAVIOR_STATE
 
-var invincible = false
+var individual = false
 var hp = max_hp
 
+func attack(direction):
+	immediate_state = INDIVIDUAL_BEHAVIOR_STATE.FIGHTING
+	animator.play("attacking")
+	#weapon.attack(direction)
+	await get_tree().create_timer(attack_time).timeout
+	animator.stop()
+	immediate_state = INDIVIDUAL_BEHAVIOR_STATE.IDLE
 
 func take_damage(damage):
-	if !invincible:
+	if individual:
 		hp -= damage
 	damaged.emit(damage)

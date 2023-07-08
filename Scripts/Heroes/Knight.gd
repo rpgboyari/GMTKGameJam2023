@@ -3,6 +3,7 @@ extends AI_Entity
 @export var damage_negation: int
 
 func _ready():
+	super()
 	Globals.heroes["knight"] = self
 
 func enemy_value(enemy): # targets the deadliest enemy
