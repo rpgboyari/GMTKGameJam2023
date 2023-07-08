@@ -1,6 +1,4 @@
-extends Entity
-
-@onready var animator = $AnimatedSprite2D
+extends AI_Entity
 
 func _ready():
 	Globals.heroes["barbarian"] = self

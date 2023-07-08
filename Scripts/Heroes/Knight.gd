@@ -1,4 +1,4 @@
-extends Entity
+extends AI_Entity
 
 @export var damage_negation: int
 

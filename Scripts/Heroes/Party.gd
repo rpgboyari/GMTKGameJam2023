@@ -1,4 +1,4 @@
-extends Node2D
+extends PathFollow2D
 
 enum GROUP_BEHAVIOR_STATE {WALKING, FIGHTING, LOOTING, GROUPING}
 var behavior_state

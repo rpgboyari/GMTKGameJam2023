@@ -1,4 +1,4 @@
-extends Entity
+extends AI_Entity
 
 func _ready():
 	Globals.heroes["rogue"] = self

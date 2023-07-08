@@ -3,10 +3,6 @@
 [ext_resource type="Script" path="res://Scripts/Heroes/Barbarian.gd" id="1_lgt8c"]
 [ext_resource type="Texture2D" uid="uid://cr5x2gprww0q1" path="res://Sprites/barbarianfront-Sheet.png" id="2_1mmdp"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pblec"]
-radius = 7.99753
-height = 55.9827
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_wtjg2"]
 atlas = ExtResource("2_1mmdp")
 region = Rect2(0, 0, 64, 64)
@@ -99,15 +95,22 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="Barbarian" type="RigidBody2D"]
-gravity_scale = 0.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pblec"]
+radius = 10.0218
+height = 60.0312
+
+[node name="Barbarian" type="CharacterBody2D"]
 script = ExtResource("1_lgt8c")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -25)
+sprite_frames = SubResource("SpriteFrames_ovahl")
+animation = &"walking"
+autoplay = "walking"
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(5.96046e-08, 25)
 rotation = -1.54593
 shape = SubResource("CapsuleShape2D_pblec")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_ovahl")
-animation = &"walking"
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true

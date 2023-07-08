@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Globals="*res://Scripts/Globals.gd"
 
+[display]
+
+window/size/viewport_height=640
+
 [dotnet]
 
 project/assembly_name="GMTKGameJam2023"
@@ -26,9 +30,7 @@ project/assembly_name="GMTKGameJam2023"
 [layer_names]
 
 2d_physics/layer_1="hero hitbox"
-2d_physics/layer_2="villain hurtbox"
-2d_physics/layer_3="villain hitbox"
-2d_physics/layer_4="hero hurtbox"
+2d_physics/layer_2="vilain hitbox"
 
 [rendering]
 

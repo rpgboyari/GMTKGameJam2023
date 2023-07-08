@@ -1,9 +1,80 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyav7cb3i21f4"]
+[gd_scene load_steps=11 format=3 uid="uid://cyav7cb3i21f4"]
 
-[ext_resource type="Texture2D" uid="uid://cntdsa38nqpjq" path="res://Sprites/kinght.png" id="1_bsvw7"]
+[ext_resource type="Texture2D" uid="uid://cjq1iss3kdayd" path="res://Sprites/kinght-Sheet.png" id="1_i68cb"]
 
-[node name="Knight" type="RigidBody2D"]
-gravity_scale = 0.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_alpb3"]
+atlas = ExtResource("1_i68cb")
+region = Rect2(0, 0, 64, 64)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_bsvw7")
+[sub_resource type="AtlasTexture" id="AtlasTexture_66ull"]
+atlas = ExtResource("1_i68cb")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycykh"]
+atlas = ExtResource("1_i68cb")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds4y8"]
+atlas = ExtResource("1_i68cb")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uk8qr"]
+atlas = ExtResource("1_i68cb")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1b0f"]
+atlas = ExtResource("1_i68cb")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kdcj"]
+atlas = ExtResource("1_i68cb")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_swdet"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_alpb3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66ull")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycykh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ds4y8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uk8qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1b0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kdcj")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nbtgq"]
+radius = 8.98146
+height = 41.9135
+
+[node name="Knight" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -26)
+sprite_frames = SubResource("SpriteFrames_swdet")
+animation = &"walking"
+autoplay = "walking"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3.8147e-06)
+rotation = -1.50659
+shape = SubResource("CapsuleShape2D_nbtgq")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true

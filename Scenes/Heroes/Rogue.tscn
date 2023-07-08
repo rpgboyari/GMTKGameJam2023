@@ -1,8 +1,35 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkxru42b4ie05"]
+[gd_scene load_steps=5 format=3 uid="uid://dkxru42b4ie05"]
 
-[ext_resource type="Texture2D" uid="uid://r68c6vueq7yg" path="res://Sprites/rouge.png" id="1_1rjcp"]
+[ext_resource type="Texture2D" uid="uid://r68c6vueq7yg" path="res://Sprites/rouge.png" id="1_16kpc"]
 
-[node name="Rogue" type="RigidBody2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qburc"]
+atlas = ExtResource("1_16kpc")
+region = Rect2(0, 0, 64, 80)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_1rjcp")
+[sub_resource type="SpriteFrames" id="SpriteFrames_ue3ow"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qburc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4bqcq"]
+radius = 6.99003
+height = 42.0469
+
+[node name="Rogue" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -34)
+sprite_frames = SubResource("SpriteFrames_ue3ow")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.62416
+shape = SubResource("CapsuleShape2D_4bqcq")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
