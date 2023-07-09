@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dnoashwv4jvej"
+path="res://.godot/imported/Grunt_Death_2.mp3-982b1c9170cf0c738b1246221a401262.mp3str"
+
+[deps]
+
+source_file="res://Sound Effects/Dead/Peasant/Grunt_Death_2.mp3"
+dest_files=["res://.godot/imported/Grunt_Death_2.mp3-982b1c9170cf0c738b1246221a401262.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

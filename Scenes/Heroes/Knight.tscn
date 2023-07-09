@@ -1,44 +1,47 @@
-[gd_scene load_steps=16 format=3 uid="uid://cyav7cb3i21f4"]
+[gd_scene load_steps=19 format=3 uid="uid://cyav7cb3i21f4"]
 
 [ext_resource type="Script" path="res://Scripts/Heroes/Knight.gd" id="1_ul2h0"]
-[ext_resource type="Texture2D" uid="uid://cntdsa38nqpjq" path="res://Sprites/Heroes/kinght.png" id="2_bmy7a"]
-[ext_resource type="Texture2D" uid="uid://cjq1iss3kdayd" path="res://Sprites/Heroes/kinght-Sheet.png" id="3_sshuw"]
-[ext_resource type="PackedScene" uid="uid://bx4hl557820mn" path="res://Scenes/Weapon.tscn" id="4_t0jj0"]
+[ext_resource type="AudioStream" uid="uid://b26fw2vsk7idw" path="res://Sound Effects/Damaged/Knight/Knight_Damege_1.mp3" id="2_2oh2q"]
+[ext_resource type="Texture2D" uid="uid://cntdsa38nqpjq" path="res://Sprites/Heroes/Knight/kinght.png" id="2_24bu0"]
+[ext_resource type="Texture2D" uid="uid://cjq1iss3kdayd" path="res://Sprites/Heroes/Knight/kinght-Sheet.png" id="3_l6o04"]
+[ext_resource type="AudioStream" uid="uid://cngamtenhglvn" path="res://Sound Effects/Damaged/Knight/Knight_Damege_2.mp3" id="3_u3b3j"]
+[ext_resource type="AudioStream" uid="uid://bmgtnpnaui77g" path="res://Sound Effects/Damaged/Knight/Knight_Damege_3.mp3" id="4_fkyxb"]
+[ext_resource type="PackedScene" uid="uid://bx30kbpgwiwi6" path="res://Scenes/Weapons/Weapon.tscn" id="4_s7jxc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ebdv6"]
-atlas = ExtResource("2_bmy7a")
+atlas = ExtResource("2_24bu0")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7dmsu"]
-atlas = ExtResource("2_bmy7a")
+atlas = ExtResource("2_24bu0")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_alpb3"]
-atlas = ExtResource("3_sshuw")
+atlas = ExtResource("3_l6o04")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_66ull"]
-atlas = ExtResource("3_sshuw")
+atlas = ExtResource("3_l6o04")
 region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ycykh"]
-atlas = ExtResource("3_sshuw")
+atlas = ExtResource("3_l6o04")
 region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ds4y8"]
-atlas = ExtResource("3_sshuw")
+atlas = ExtResource("3_l6o04")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uk8qr"]
-atlas = ExtResource("3_sshuw")
+atlas = ExtResource("3_l6o04")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g1b0f"]
-atlas = ExtResource("3_sshuw")
+atlas = ExtResource("3_l6o04")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kdcj"]
-atlas = ExtResource("3_sshuw")
+atlas = ExtResource("3_l6o04")
 region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_swdet"]
@@ -100,6 +103,7 @@ max_hp = 10
 damage = 2
 attack_time = 1.0
 walk_speed = 80
+sound_effects = [ExtResource("2_2oh2q"), ExtResource("3_u3b3j"), ExtResource("4_fkyxb")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -26)
@@ -115,6 +119,8 @@ shape = SubResource("CapsuleShape2D_nbtgq")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_mask = 2
 
-[node name="Weapon" parent="." instance=ExtResource("4_t0jj0")]
+[node name="Weapon" parent="." instance=ExtResource("4_s7jxc")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Weapon"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

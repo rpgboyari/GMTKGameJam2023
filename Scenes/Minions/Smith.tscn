@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://wdwhw33si5dg"]
 
 [ext_resource type="Script" path="res://Scripts/AI_Entity.gd" id="1_f0u35"]
-[ext_resource type="Texture2D" uid="uid://bgvw3mivdyut8" path="res://Sprites/Minions/tankfront.png" id="2_8aw40"]
+[ext_resource type="Texture2D" uid="uid://bgvw3mivdyut8" path="res://Sprites/Minions/Smith/tankfront.png" id="2_8aw40"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vl6ee"]
 atlas = ExtResource("2_8aw40")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dmjkm4gj10x36"
+path="res://.godot/imported/Tank_Death_1.mp3-c19760133dd339cc446611b03539a56d.mp3str"
+
+[deps]
+
+source_file="res://Sound Effects/Dead/Smith/Tank_Death_1.mp3"
+dest_files=["res://.godot/imported/Tank_Death_1.mp3-c19760133dd339cc446611b03539a56d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

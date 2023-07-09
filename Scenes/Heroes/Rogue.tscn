@@ -1,56 +1,56 @@
 [gd_scene load_steps=19 format=3 uid="uid://dkxru42b4ie05"]
 
 [ext_resource type="Script" path="res://Scripts/Heroes/Rogue.gd" id="1_g1vu1"]
-[ext_resource type="Texture2D" uid="uid://r68c6vueq7yg" path="res://Sprites/Heroes/rouge.png" id="2_s3a2i"]
-[ext_resource type="Texture2D" uid="uid://cn1mvxhrlmxlq" path="res://Sprites/Heroes/rouge-Sheet.png" id="3_7v2uv"]
-[ext_resource type="PackedScene" uid="uid://bx4hl557820mn" path="res://Scenes/Weapon.tscn" id="4_yifcn"]
+[ext_resource type="Texture2D" uid="uid://r68c6vueq7yg" path="res://Sprites/Heroes/Rogue/rouge.png" id="2_mn7af"]
+[ext_resource type="Texture2D" uid="uid://cn1mvxhrlmxlq" path="res://Sprites/Heroes/Rogue/rouge-Sheet.png" id="3_gf4t3"]
+[ext_resource type="PackedScene" uid="uid://bx30kbpgwiwi6" path="res://Scenes/Weapons/Weapon.tscn" id="4_jomrc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_16rfs"]
-atlas = ExtResource("2_s3a2i")
+atlas = ExtResource("2_mn7af")
 region = Rect2(0, 0, 64, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qburc"]
-atlas = ExtResource("2_s3a2i")
+atlas = ExtResource("2_mn7af")
 region = Rect2(0, 0, 64, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k15qi"]
-atlas = ExtResource("3_7v2uv")
+atlas = ExtResource("3_gf4t3")
 region = Rect2(0, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ncd7"]
-atlas = ExtResource("3_7v2uv")
+atlas = ExtResource("3_gf4t3")
 region = Rect2(70, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oavn0"]
-atlas = ExtResource("3_7v2uv")
+atlas = ExtResource("3_gf4t3")
 region = Rect2(140, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v1nlf"]
-atlas = ExtResource("3_7v2uv")
+atlas = ExtResource("3_gf4t3")
 region = Rect2(210, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ktjfp"]
-atlas = ExtResource("3_7v2uv")
+atlas = ExtResource("3_gf4t3")
 region = Rect2(280, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8gumo"]
-atlas = ExtResource("3_7v2uv")
+atlas = ExtResource("3_gf4t3")
 region = Rect2(350, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j74fv"]
-atlas = ExtResource("3_7v2uv")
+atlas = ExtResource("3_gf4t3")
 region = Rect2(420, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bxwhs"]
-atlas = ExtResource("3_7v2uv")
+atlas = ExtResource("3_gf4t3")
 region = Rect2(490, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ch4vj"]
-atlas = ExtResource("3_7v2uv")
+atlas = ExtResource("3_gf4t3")
 region = Rect2(560, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a4mkr"]
-atlas = ExtResource("3_7v2uv")
+atlas = ExtResource("3_gf4t3")
 region = Rect2(630, 0, 70, 90)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ue3ow"]
@@ -133,6 +133,8 @@ shape = SubResource("CapsuleShape2D_4bqcq")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_mask = 2
 
-[node name="Weapon" parent="." instance=ExtResource("4_yifcn")]
+[node name="Weapon" parent="." instance=ExtResource("4_jomrc")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Weapon"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

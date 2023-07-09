@@ -151,4 +151,5 @@ func _on_enemy_exited_region(enemy):
 func _on_velocity_computed(safe_velocity):
 	#print_debug("safe velocity computed")
 	velocity = safe_velocity
+	animator.flip_h = velocity.x < 0
 	move_and_slide()

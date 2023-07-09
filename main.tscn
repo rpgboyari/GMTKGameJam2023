@@ -1,9 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://dgwxwos27qi07"]
+[gd_scene load_steps=23 format=3 uid="uid://dgwxwos27qi07"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_7cpnr"]
 [ext_resource type="TileSet" uid="uid://bdydbnji6i4tq" path="res://Resources/keep_tileset.tres" id="1_ffqww"]
 [ext_resource type="PackedScene" uid="uid://klbbqwbyny2e" path="res://Scenes/Heroes/Party.tscn" id="4_2687l"]
+[ext_resource type="Texture2D" uid="uid://bgvw3mivdyut8" path="res://Sprites/Minions/Smith/tankfront.png" id="5_8h7kn"]
+[ext_resource type="Texture2D" uid="uid://cb4frcextqjha" path="res://Sprites/Minions/Peasant/grunt_front.png" id="6_17m5u"]
 [ext_resource type="PackedScene" uid="uid://dknt1c21b0aji" path="res://Scenes/Region.tscn" id="6_ri8p5"]
+[ext_resource type="Script" path="res://Scripts/Minion_Placer.gd" id="7_cb4sl"]
+[ext_resource type="AudioStream" uid="uid://c4ii2wqfpuggx" path="res://Sound Effects/Misc/Little_Blip_Noise.mp3" id="8_5vgjn"]
+[ext_resource type="AudioStream" uid="uid://b8orn0c0w3l8f" path="res://Sound Effects/Spawns/Spawn_Noise_1.mp3" id="8_42k8n"]
+[ext_resource type="AudioStream" uid="uid://cftqeppqi1wdo" path="res://Sound Effects/Spawns/Spawn_Noise_2.mp3" id="9_p7okg"]
+[ext_resource type="AudioStream" uid="uid://b7o5tlhfrindn" path="res://Sound Effects/Spawns/Spawn_Noise_3.mp3" id="10_e8p4p"]
+[ext_resource type="AudioStream" uid="uid://byma50alydbuy" path="res://Sound Effects/Spawns/Spawn_Noise_4.mp3" id="11_7eoa5"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_urm8s"]
 vertices = PackedVector2Array(272, 624, 0, 624, 0, 560, 208, 560, 272, 176, 208, 400, 112, 400, 112, 432, 48, 432, 48, 272, 112, 272, 112, 304, 208, 304, 208, 112, 464, 112, 400, 176, 464, 208, 400, 272, 496, 272, 560, 208, 560, 304, 496, 368, 592, 368, 656, 304, 656, 400, 592, 464, 688, 464, 752, 400, 752, 496, 688, 560, 944, 560, 880, 496, 944, 400, 880, 80, 1136, 80, 1136, 144, 944, 144, 1040, 304, 1040, 272, 1104, 272, 1104, 432, 1040, 432, 1040, 400, 944, 304)
@@ -34,6 +42,12 @@ size = Vector2(288, 96)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wmri4"]
 size = Vector2(288, 288)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eolb3"]
+size = Vector2(32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b2at7"]
+size = Vector2(32, 32)
+
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_7cpnr")
@@ -53,22 +67,6 @@ curve = SubResource("Curve2D_dssne")
 [node name="Party" parent="Path2D" instance=ExtResource("4_2687l")]
 position = Vector2(32, 592)
 rotates = false
-
-[node name="TabBar" type="TabBar" parent="."]
-offset_left = 1152.0
-offset_right = 1252.0
-offset_bottom = 30.0
-scale = Vector2(-1, 1)
-tab_alignment = 1
-scrolling_enabled = false
-drag_to_rearrange_enabled = true
-scroll_to_selected = false
-tab_count = 5
-tab_0/title = ""
-tab_1/title = ""
-tab_2/title = ""
-tab_3/title = ""
-tab_4/title = ""
 
 [node name="Regions" type="Node2D" parent="."]
 
@@ -144,3 +142,61 @@ shape = SubResource("RectangleShape2D_wmri4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Regions/Region12"]
 position = Vector2(624, 432)
 shape = SubResource("RectangleShape2D_wmri4")
+
+[node name="Control" type="Control" parent="."]
+z_index = 99
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 640.0
+
+[node name="Spawn_Smith" type="TextureButton" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.542
+anchor_top = 0.9
+anchor_right = 0.597
+anchor_bottom = 1.0
+offset_left = -0.384033
+offset_right = 0.255981
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("5_8h7kn")
+
+[node name="Spawn_Peasant" type="TextureButton" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.411
+anchor_top = 0.884
+anchor_right = 0.458
+anchor_bottom = 1.0
+offset_left = 0.527985
+offset_top = 0.23999
+offset_right = 0.383972
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("6_17m5u")
+
+[node name="Minion_Placer" type="Node2D" parent="."]
+script = ExtResource("7_cb4sl")
+thumbnails = {
+"peasant": ExtResource("6_17m5u"),
+"smith": ExtResource("5_8h7kn")
+}
+succesful_place_sounds = [ExtResource("8_42k8n"), ExtResource("9_p7okg"), ExtResource("10_e8p4p"), ExtResource("11_7eoa5")]
+failed_place_sounds = [ExtResource("8_5vgjn")]
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="Minion_Placer"]
+shape = SubResource("RectangleShape2D_eolb3")
+target_position = Vector2(0, 0)
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Minion_Placer/ShapeCast2D"]
+visible = false
+texture = SubResource("PlaceholderTexture2D_b2at7")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Minion_Placer"]
+stream = ExtResource("8_5vgjn")
+
+[connection signal="pressed" from="Control/Spawn_Smith" to="Minion_Placer" method="_on_spawn_smith_pressed"]
+[connection signal="pressed" from="Control/Spawn_Peasant" to="Minion_Placer" method="_on_spawn_peasant_pressed"]

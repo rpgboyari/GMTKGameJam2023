@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c4ii2wqfpuggx"
+path="res://.godot/imported/Little_Blip_Noise.mp3-278a49330481ed45d6faa14e38f841fd.mp3str"
+
+[deps]
+
+source_file="res://Sound Effects/Misc/Little_Blip_Noise.mp3"
+dest_files=["res://.godot/imported/Little_Blip_Noise.mp3-278a49330481ed45d6faa14e38f841fd.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

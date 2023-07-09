@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cftqeppqi1wdo"
+path="res://.godot/imported/Spawn_Noise_2.mp3-1ab49d78ed8995afd5be6bf3988d8e69.mp3str"
+
+[deps]
+
+source_file="res://Sound Effects/Spawns/Spawn_Noise_2.mp3"
+dest_files=["res://.godot/imported/Spawn_Noise_2.mp3-1ab49d78ed8995afd5be6bf3988d8e69.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

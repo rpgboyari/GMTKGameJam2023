@@ -1,19 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvauy3vkyqs2u"]
+[gd_scene load_steps=11 format=3 uid="uid://dvauy3vkyqs2u"]
 
 [ext_resource type="Script" path="res://Scripts/Heroes/Archer.gd" id="1_kl6mf"]
-[ext_resource type="Texture2D" uid="uid://bvt2wfr5nuyr4" path="res://Sprites/Heroes/barbarianfront.png" id="2_4odu2"]
-[ext_resource type="PackedScene" uid="uid://bx4hl557820mn" path="res://Scenes/Weapon.tscn" id="3_5imvq"]
+[ext_resource type="Texture2D" uid="uid://bvt2wfr5nuyr4" path="res://Sprites/Heroes/Barbarian/barbarianfront.png" id="2_0185t"]
+[ext_resource type="AudioStream" uid="uid://b6i0cfcijdii" path="res://Sound Effects/Damaged/Archer/Archer_Hurt.mp3" id="2_yd0op"]
+[ext_resource type="AudioStream" uid="uid://ch04kkvogot2i" path="res://Sound Effects/Damaged/Archer/Archer_Hurt_2.mp3" id="3_io2ap"]
+[ext_resource type="PackedScene" uid="uid://bat7w1jn8v7a6" path="res://Scenes/Weapons/Archer_Bow.tscn" id="3_lhlm7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ri43"]
-atlas = ExtResource("2_4odu2")
+atlas = ExtResource("2_0185t")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0t5w3"]
-atlas = ExtResource("2_4odu2")
+atlas = ExtResource("2_0185t")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ckjiv"]
-atlas = ExtResource("2_4odu2")
+atlas = ExtResource("2_0185t")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3qgrh"]
@@ -47,19 +49,17 @@ animations = [{
 radius = 9.00986
 height = 58.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3nq4w"]
-radius = 7.0
-
 [node name="Archer" type="CharacterBody2D"]
 collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_kl6mf")
 group_top = true
 max_hp = 10
-damage = 1
-attack_time = 1.0
+damage = 2
+attack_time = 2.0
 walk_speed = 100
 is_ranged = true
+sound_effects = [ExtResource("2_yd0op"), ExtResource("3_io2ap")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -24)
@@ -73,13 +73,6 @@ shape = SubResource("CapsuleShape2D_iamyp")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_mask = 2
 
-[node name="Weapon" parent="." instance=ExtResource("3_5imvq")]
-parent_offset = 10
-projectile_speed = 60
+[node name="Weapon" parent="." instance=ExtResource("3_lhlm7")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
-shape = SubResource("CircleShape2D_3nq4w")
-
-[node name="Sprite2D" type="Sprite2D" parent="Weapon"]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_4odu2")
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

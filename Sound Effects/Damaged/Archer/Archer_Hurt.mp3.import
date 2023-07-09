@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b6i0cfcijdii"
+path="res://.godot/imported/Archer_Hurt.mp3-b5b716eb0dc7652d5ec99efe98bb6eb6.mp3str"
+
+[deps]
+
+source_file="res://Sound Effects/Damaged/Archer/Archer_Hurt.mp3"
+dest_files=["res://.godot/imported/Archer_Hurt.mp3-b5b716eb0dc7652d5ec99efe98bb6eb6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

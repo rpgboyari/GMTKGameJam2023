@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://drkngb3hxqflh"
+path="res://.godot/imported/Arrow_sound_V2.mp3-43de07d26895f59847f1146d3f2948fd.mp3str"
+
+[deps]
+
+source_file="res://Sound Effects/Attacks/Archer/Arrow_sound_V2.mp3"
+dest_files=["res://.godot/imported/Arrow_sound_V2.mp3-43de07d26895f59847f1146d3f2948fd.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

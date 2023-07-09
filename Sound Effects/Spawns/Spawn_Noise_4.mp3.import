@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://byma50alydbuy"
+path="res://.godot/imported/Spawn_Noise_4.mp3-304559a8b9fa1b150662c3da786995d6.mp3str"
+
+[deps]
+
+source_file="res://Sound Effects/Spawns/Spawn_Noise_4.mp3"
+dest_files=["res://.godot/imported/Spawn_Noise_4.mp3-304559a8b9fa1b150662c3da786995d6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
