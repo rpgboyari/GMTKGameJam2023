@@ -1,17 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bat7w1jn8v7a6"]
+[gd_scene load_steps=2 format=3 uid="uid://bat7w1jn8v7a6"]
 
 [ext_resource type="Script" path="res://Scripts/Weapons/Weapon.gd" id="1_oqudg"]
-[ext_resource type="AudioStream" uid="uid://bxwbfr7226im5" path="res://Sound Effects/Attacks/Archer/Arrow_sound.mp3" id="2_f6awj"]
-[ext_resource type="AudioStream" uid="uid://drkngb3hxqflh" path="res://Sound Effects/Attacks/Archer/Arrow_sound_V2.mp3" id="3_5bgke"]
-[ext_resource type="PackedScene" uid="uid://c6lhnj5dyfw8r" path="res://Scenes/Weapons/Heroes/Archer_Arrow.tscn" id="4_0o3pj"]
 
 [node name="Archer_Bow" type="Area2D"]
 script = ExtResource("1_oqudg")
-sound_effects = Array[AudioStream]([ExtResource("2_f6awj"), ExtResource("3_5bgke")])
-projectile = ExtResource("4_0o3pj")
-attack_time = 1
-parent_offset = 20
-TESTING = true
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

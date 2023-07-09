@@ -1,11 +1,16 @@
-[gd_scene load_steps=23 format=3 uid="uid://b1oh4peeh0w7g"]
+[gd_scene load_steps=26 format=3 uid="uid://b1oh4peeh0w7g"]
 
 [ext_resource type="Script" path="res://Scripts/Heroes/Barbarian.gd" id="1_lgt8c"]
+[ext_resource type="AudioStream" uid="uid://bsy7bsxlpuvy4" path="res://Sound Effects/Attacks/Barbarian/Barbarian_Slash.mp3" id="2_bdh7r"]
 [ext_resource type="AudioStream" uid="uid://cvewjhxf50lsi" path="res://Sound Effects/Damaged/Barbarian/Barbarian_Hurt.mp3" id="2_q2cle"]
+[ext_resource type="AudioStream" uid="uid://brupam8cbvoq5" path="res://Sound Effects/Attacks/Barbarian/Barbarian_Slash_2.mp3" id="3_m2dyh"]
 [ext_resource type="AudioStream" uid="uid://b6f7272dm5j27" path="res://Sound Effects/Damaged/Barbarian/Barbarian_Hurt_2.mp3" id="3_v6t7b"]
 [ext_resource type="Texture2D" uid="uid://bvt2wfr5nuyr4" path="res://Sprites/Heroes/Barbarian/barbarianfront.png" id="4_2aowx"]
 [ext_resource type="Texture2D" uid="uid://cr5x2gprww0q1" path="res://Sprites/Heroes/Barbarian/barbarianfront-Sheet.png" id="5_aaujn"]
 [ext_resource type="PackedScene" uid="uid://bx30kbpgwiwi6" path="res://Scenes/Weapons/Weapon.tscn" id="6_rx2de"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3plv8"]
+radius = 60.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b0owq"]
 atlas = ExtResource("4_2aowx")
@@ -133,6 +138,8 @@ motion_mode = 1
 script = ExtResource("1_lgt8c")
 group_top = true
 group_right = true
+weapon_shape = SubResource("CircleShape2D_3plv8")
+weapon_sound_effects = Array[AudioStream]([ExtResource("2_bdh7r"), ExtResource("3_m2dyh")])
 max_hp = 14
 damage = 1
 attack_time = 1.0

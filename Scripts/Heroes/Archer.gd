@@ -5,4 +5,4 @@ extends AI_Entity
 #	Globals.heroes["archer"] = self
 
 func enemy_value(enemy): # targets the lowest hp enemy
-	return target.hp
+	return enemy.hp

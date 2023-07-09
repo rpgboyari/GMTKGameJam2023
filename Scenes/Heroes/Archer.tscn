@@ -1,10 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://dvauy3vkyqs2u"]
+[gd_scene load_steps=28 format=3 uid="uid://dvauy3vkyqs2u"]
 
 [ext_resource type="Script" path="res://Scripts/Heroes/Archer.gd" id="1_kl6mf"]
+[ext_resource type="AudioStream" uid="uid://bxwbfr7226im5" path="res://Sound Effects/Attacks/Archer/Arrow_sound.mp3" id="2_dcb1x"]
 [ext_resource type="AudioStream" uid="uid://b6i0cfcijdii" path="res://Sound Effects/Damaged/Archer/Archer_Hurt.mp3" id="2_yd0op"]
+[ext_resource type="AudioStream" uid="uid://drkngb3hxqflh" path="res://Sound Effects/Attacks/Archer/Arrow_sound_V2.mp3" id="3_3eg5w"]
 [ext_resource type="AudioStream" uid="uid://ch04kkvogot2i" path="res://Sound Effects/Damaged/Archer/Archer_Hurt_2.mp3" id="3_io2ap"]
 [ext_resource type="PackedScene" uid="uid://bat7w1jn8v7a6" path="res://Scenes/Weapons/Heroes/Archer_Attack.tscn" id="3_lhlm7"]
 [ext_resource type="Texture2D" uid="uid://7ohfb7kp0o8a" path="res://Sprites/Heroes/Archer/bowguy_atack-Sheet.png" id="4_3qred"]
+[ext_resource type="PackedScene" uid="uid://c6lhnj5dyfw8r" path="res://Scenes/Weapons/Heroes/Archer_Arrow.tscn" id="4_nbnau"]
 [ext_resource type="Texture2D" uid="uid://7lp801gejkpf" path="res://Sprites/Heroes/Archer/bowguy-Sheet.png" id="5_lny04"]
 [ext_resource type="Texture2D" uid="uid://b4du7n0dkrfjm" path="res://Sprites/Heroes/Archer/bowguy.png" id="5_v64w4"]
 
@@ -140,6 +143,8 @@ collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_kl6mf")
 group_top = true
+weapon_sound_effects = Array[AudioStream]([ExtResource("2_dcb1x"), ExtResource("3_3eg5w")])
+projectile = ExtResource("4_nbnau")
 max_hp = 10
 damage = 2
 attack_time = 2.0

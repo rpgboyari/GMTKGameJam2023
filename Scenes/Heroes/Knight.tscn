@@ -1,12 +1,15 @@
-[gd_scene load_steps=24 format=3 uid="uid://cyav7cb3i21f4"]
+[gd_scene load_steps=27 format=3 uid="uid://cyav7cb3i21f4"]
 
 [ext_resource type="Script" path="res://Scripts/Heroes/Knight.gd" id="1_ul2h0"]
 [ext_resource type="AudioStream" uid="uid://b26fw2vsk7idw" path="res://Sound Effects/Damaged/Knight/Knight_Damege_1.mp3" id="2_2oh2q"]
 [ext_resource type="Texture2D" uid="uid://cntdsa38nqpjq" path="res://Sprites/Heroes/Knight/kinght.png" id="2_24bu0"]
+[ext_resource type="AudioStream" uid="uid://c7e3qtx5p7823" path="res://Sound Effects/Attacks/Knight/Slash_1.mp3" id="2_mo8yj"]
+[ext_resource type="AudioStream" uid="uid://bq50ittplufpe" path="res://Sound Effects/Attacks/Knight/Slash_2.mp3" id="3_3450e"]
 [ext_resource type="Texture2D" uid="uid://cjq1iss3kdayd" path="res://Sprites/Heroes/Knight/kinght-Sheet.png" id="3_l6o04"]
 [ext_resource type="AudioStream" uid="uid://cngamtenhglvn" path="res://Sound Effects/Damaged/Knight/Knight_Damege_2.mp3" id="3_u3b3j"]
 [ext_resource type="AudioStream" uid="uid://bmgtnpnaui77g" path="res://Sound Effects/Damaged/Knight/Knight_Damege_3.mp3" id="4_fkyxb"]
 [ext_resource type="PackedScene" uid="uid://bx30kbpgwiwi6" path="res://Scenes/Weapons/Weapon.tscn" id="4_s7jxc"]
+[ext_resource type="AudioStream" uid="uid://cci8cbej5yj82" path="res://Sound Effects/Attacks/Knight/Slash_3.mp3" id="4_vnufw"]
 [ext_resource type="Texture2D" uid="uid://dnv1m7pg136ir" path="res://Sprites/Heroes/Knight/kinght_atack-Sheet.png" id="5_xvupr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jmhp8"]
@@ -128,6 +131,7 @@ motion_mode = 1
 script = ExtResource("1_ul2h0")
 damage_negation = 1
 group_right = true
+weapon_sound_effects = Array[AudioStream]([ExtResource("2_mo8yj"), ExtResource("3_3450e"), ExtResource("4_vnufw")])
 max_hp = 10
 damage = 2
 attack_time = 1.0

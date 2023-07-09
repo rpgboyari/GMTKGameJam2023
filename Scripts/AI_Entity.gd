@@ -5,7 +5,7 @@ signal enemy_detected(enemy)
 signal enemy_undetected(enemy)
 signal destination_reached()
 
-enum LONG_TERM_STATE {MARCHING, FIGHTING, LOOTING, GROUPING}
+enum LONG_TERM_STATE {MARCHING, FIGHTING, LOOTING, GROUPING, IDLING}
 var long_term_state: LONG_TERM_STATE
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
@@ -52,21 +52,29 @@ func _physics_process(delta):
 		var to_target: Vector2 = target.global_position - global_position
 		var target_distance = to_target.length()
 		if is_ranged || target_distance <= MELEE_RANGE + 5:
+			print_debug(str(self) + " attacking" + str(target))
 			attack(to_target)
 		else:
-			walk_to(to_target - (to_target * MELEE_RANGE / target_distance))
+			print_debug("target_distance: " + str(target_distance) + " MELEE_RANGE + 5: " + str(MELEE_RANGE + 5))
+			print_debug(str(self) + " walking to " + str(to_target) + " to get " + str(target))
+			walk_to(target.global_position - (to_target * MELEE_RANGE / (target_distance * 2)))
 	elif long_term_state == LONG_TERM_STATE.LOOTING:
 		pass
 
 func add_nearby_enemy(enemy):
-	if !nearby_enemies[enemy]:
+	
+	if !nearby_enemies.has(enemy):
 		nearby_enemies[enemy] = 1
 	else:
 		nearby_enemies[enemy] += 1
+	if individual && long_term_state != LONG_TERM_STATE.FIGHTING:
+		start_fighting()
 func subtract_nearby_enemy(enemy):
 	nearby_enemies[enemy] -= 1
 	if nearby_enemies[enemy] < 1:
 		nearby_enemies.erase(enemy)
+	if individual && nearby_enemies.is_empty():
+		pass
 func enter_region(region: Region):
 	regions[region] = true
 	var region_enemies
@@ -80,7 +88,10 @@ func enter_region(region: Region):
 			region.hero_entered.connect(_on_enemy_entered_region)
 			region.hero_exited.connect(_on_enemy_exited_region)
 	for enemy in region_enemies:
-		add_nearby_enemy(enemy)
+		if individual:
+			add_nearby_enemy(enemy)
+		else:
+			emit_signal("enemy_detected", enemy)
 func exit_region(region):
 	regions.erase(region)
 	var region_enemies
@@ -94,15 +105,19 @@ func exit_region(region):
 			region.hero_entered.disconnect(_on_enemy_entered_region)
 			region.hero_exited.disconnect(_on_enemy_exited_region)
 	for enemy in region_enemies:
-		subtract_nearby_enemy(enemy)
+		if individual:
+			subtract_nearby_enemy(enemy)
+		else:
+			emit_signal("enemy_undetected", enemy)
 
 func enemy_value(enemy): #returns how valuable of a target 'enemy' would be, lower is better
-	assert(false)
+	return 0 #all enemies prioritized equally
 func find_target():
 	var best_value
 	var best_enemies = []
 	var enemy_value
 	for enemy in nearby_enemies:
+		print_debug("finding value of " + str(enemy))
 		enemy_value = enemy_value(enemy)
 		if best_value:
 			if enemy_value > best_value:
@@ -137,16 +152,24 @@ func start_fighting():
 	find_target()
 func start_looting():
 	long_term_state = LONG_TERM_STATE.LOOTING
-func start_grouping(point):
+func start_grouping(point, direction):
 	long_term_state = LONG_TERM_STATE.GROUPING
-	walk_to(point + group_offset)
+	var rotated_offset = group_offset.rotated(direction.angle())
+	walk_to(point + rotated_offset)
+func start_idling():
+	long_term_state = LONG_TERM_STATE.IDLING
+	immediate_state = IMMEDIATE_STATE.IDLE
 
 func _on_enemy_entered_region(enemy):
-	add_nearby_enemy(enemy)
-	emit_signal("enemy_detected", enemy)
+	if individual:
+		add_nearby_enemy(enemy)
+	else:
+		emit_signal("enemy_detected", enemy)
 func _on_enemy_exited_region(enemy):
-	subtract_nearby_enemy(enemy)
-	emit_signal("enemy_undetected", enemy)
+	if individual:
+		subtract_nearby_enemy(enemy)
+	else:
+		emit_signal("enemy_undetected", enemy)
 
 func _on_velocity_computed(safe_velocity):
 	#print_debug("safe velocity computed")

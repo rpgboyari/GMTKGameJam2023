@@ -20,23 +20,25 @@ const MELEE_RANGE = 55
 @export var walk_speed: int
 @export var is_ranged: bool
 @export var team: TEAM
+@export var individual: bool = false
 @export var sound_effects: Array
 
 var immediate_state: IMMEDIATE_STATE
 
-var individual = false
 var hp = max_hp
 
 func _ready():
 	weapon.weapon_shape = weapon_shape
-	weapon.sound_effects = sound_effects
+	weapon.sound_effects = weapon_sound_effects
 	weapon.projectile = projectile
 	weapon.damage = damage
 	weapon.attack_time = attack_time
 	match team:
 		TEAM.HERO:
+			weapon.collision_layer = 0b10
 			weapon.collision_mask = 0b10
 		TEAM.VILLAIN:
+			weapon.collision_layer = 0b01
 			weapon.collision_mask = 0b01
 
 func attack(direction):

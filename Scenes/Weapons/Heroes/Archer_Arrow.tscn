@@ -8,8 +8,6 @@ radius = 5.09902
 
 [node name="Archer_Arrow" type="Area2D"]
 script = ExtResource("1_imle8")
-damage = 1
-attack_time = 999
 projectile_speed = 300
 
 [node name="Timer" type="Timer" parent="."]

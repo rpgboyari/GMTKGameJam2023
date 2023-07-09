@@ -16,8 +16,11 @@ var potions = max_potions
 
 var enemies_detected = 0
 var walking_progress = 0
+var travel_direction = Vector2.RIGHT
+var previous_position
 
 func _ready():
+	previous_position = position
 	progress = 0.0
 	start_walking()
 	
@@ -32,6 +35,12 @@ func _ready():
 func _physics_process(delta):
 	if behavior_state == GROUP_BEHAVIOR_STATE.WALKING:
 		progress += group_travel_speed * delta
+		var vector_travelled = position - previous_position
+		var direction_travelled = vector_travelled.normalized()
+		if !travel_direction or travel_direction != direction_travelled:
+			travel_direction = direction_travelled
+			start_walking()
+		previous_position = position
 	
 #func party_setup():
 	#await get_tree().physics_frame
@@ -61,7 +70,7 @@ func start_grouping(point = global_position):
 	behavior_state = GROUP_BEHAVIOR_STATE.GROUPING
 	for key in party:
 		#print_debug(str(party[key]) + " grouping at " + str(point + party[key].group_offset))
-		party[key].start_grouping(point)
+		party[key].start_grouping(point, travel_direction)
 	
 	await all_done_walking
 
@@ -106,7 +115,7 @@ func _on_enemy_undetected(enemy):
 		if behavior_state == GROUP_BEHAVIOR_STATE.LOOTING:
 			stop_loot_fighting()
 		elif behavior_state != GROUP_BEHAVIOR_STATE.FIGHTING:
-			start_grouping()
+			start_walking()
 
 #func _on_no_enemies_detected():
 #	assert(behavior_state == GROUP_BEHAVIOR_STATE.FIGHTING or behavior_state == GROUP_BEHAVIOR_STATE.LOOTING)

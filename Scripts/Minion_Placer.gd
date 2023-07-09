@@ -21,13 +21,16 @@ var active_choice
 func _input(event):
 	if placing && event is InputEventMouseButton && event.pressed:
 		if event.button_index == 1:
-			shape_cast.position = event.position + Vector2(shape_cast_offset_x, shape_cast_offset_y)
+			var adjusted_position = event.position + Vector2(shape_cast_offset_x, shape_cast_offset_y)
+			shape_cast.position = adjusted_position
 			shape_cast.force_shapecast_update()
 			if shape_cast.is_colliding():
 				play_random_sound(failed_place_sounds)
 			else:
 				var new_minion = active_choice.instantiate()
+				new_minion.position = adjusted_position
 				get_node("/root").add_child(new_minion)
+				print_debug(str(new_minion) + " added to /root")
 				unset_choice()
 				play_random_sound(succesful_place_sounds)
 		elif event.button_index == 2:
