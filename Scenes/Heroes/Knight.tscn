@@ -1,43 +1,43 @@
 [gd_scene load_steps=15 format=3 uid="uid://cyav7cb3i21f4"]
 
-[ext_resource type="Texture2D" uid="uid://cjq1iss3kdayd" path="res://Sprites/kinght-Sheet.png" id="1_i68cb"]
 [ext_resource type="Script" path="res://Scripts/Heroes/Knight.gd" id="1_ul2h0"]
-[ext_resource type="Texture2D" uid="uid://cntdsa38nqpjq" path="res://Sprites/kinght.png" id="2_x781w"]
+[ext_resource type="Texture2D" uid="uid://cntdsa38nqpjq" path="res://Sprites/Heroes/kinght.png" id="2_bmy7a"]
+[ext_resource type="Texture2D" uid="uid://cjq1iss3kdayd" path="res://Sprites/Heroes/kinght-Sheet.png" id="3_sshuw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ebdv6"]
-atlas = ExtResource("2_x781w")
+atlas = ExtResource("2_bmy7a")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7dmsu"]
-atlas = ExtResource("2_x781w")
+atlas = ExtResource("2_bmy7a")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_alpb3"]
-atlas = ExtResource("1_i68cb")
+atlas = ExtResource("3_sshuw")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_66ull"]
-atlas = ExtResource("1_i68cb")
+atlas = ExtResource("3_sshuw")
 region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ycykh"]
-atlas = ExtResource("1_i68cb")
+atlas = ExtResource("3_sshuw")
 region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ds4y8"]
-atlas = ExtResource("1_i68cb")
+atlas = ExtResource("3_sshuw")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uk8qr"]
-atlas = ExtResource("1_i68cb")
+atlas = ExtResource("3_sshuw")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g1b0f"]
-atlas = ExtResource("1_i68cb")
+atlas = ExtResource("3_sshuw")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kdcj"]
-atlas = ExtResource("1_i68cb")
+atlas = ExtResource("3_sshuw")
 region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_swdet"]
@@ -91,6 +91,7 @@ height = 41.9135
 
 [node name="Knight" type="CharacterBody2D"]
 collision_mask = 2
+motion_mode = 1
 script = ExtResource("1_ul2h0")
 damage_negation = 1
 group_right = true

@@ -9,7 +9,7 @@ var heroes: Dictionary = {}
 var villains: Dictionary  = {}
 
 func _on_body_entered(body):
-	if !body.team:
+	if !body is Entity:
 		return
 	if body.has_method("enter_region"):
 		body.enter_region(self)
@@ -21,7 +21,7 @@ func _on_body_entered(body):
 		emit_signal("villain_entered", body)
 
 func _on_body_exited(body):
-	if !body.team:
+	if !body is Entity:
 		return
 	if body.has_method("exit_region"):
 		body.exit_region(self)

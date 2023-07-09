@@ -1,55 +1,55 @@
 [gd_scene load_steps=18 format=3 uid="uid://dkxru42b4ie05"]
 
-[ext_resource type="Texture2D" uid="uid://r68c6vueq7yg" path="res://Sprites/rouge.png" id="1_16kpc"]
 [ext_resource type="Script" path="res://Scripts/Heroes/Rogue.gd" id="1_g1vu1"]
-[ext_resource type="Texture2D" uid="uid://cn1mvxhrlmxlq" path="res://Sprites/rouge-Sheet.png" id="3_wqpab"]
+[ext_resource type="Texture2D" uid="uid://r68c6vueq7yg" path="res://Sprites/Heroes/rouge.png" id="2_s3a2i"]
+[ext_resource type="Texture2D" uid="uid://cn1mvxhrlmxlq" path="res://Sprites/Heroes/rouge-Sheet.png" id="3_7v2uv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_16rfs"]
-atlas = ExtResource("1_16kpc")
+atlas = ExtResource("2_s3a2i")
 region = Rect2(0, 0, 64, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qburc"]
-atlas = ExtResource("1_16kpc")
+atlas = ExtResource("2_s3a2i")
 region = Rect2(0, 0, 64, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k15qi"]
-atlas = ExtResource("3_wqpab")
+atlas = ExtResource("3_7v2uv")
 region = Rect2(0, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ncd7"]
-atlas = ExtResource("3_wqpab")
+atlas = ExtResource("3_7v2uv")
 region = Rect2(70, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oavn0"]
-atlas = ExtResource("3_wqpab")
+atlas = ExtResource("3_7v2uv")
 region = Rect2(140, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v1nlf"]
-atlas = ExtResource("3_wqpab")
+atlas = ExtResource("3_7v2uv")
 region = Rect2(210, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ktjfp"]
-atlas = ExtResource("3_wqpab")
+atlas = ExtResource("3_7v2uv")
 region = Rect2(280, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8gumo"]
-atlas = ExtResource("3_wqpab")
+atlas = ExtResource("3_7v2uv")
 region = Rect2(350, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j74fv"]
-atlas = ExtResource("3_wqpab")
+atlas = ExtResource("3_7v2uv")
 region = Rect2(420, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bxwhs"]
-atlas = ExtResource("3_wqpab")
+atlas = ExtResource("3_7v2uv")
 region = Rect2(490, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ch4vj"]
-atlas = ExtResource("3_wqpab")
+atlas = ExtResource("3_7v2uv")
 region = Rect2(560, 0, 70, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a4mkr"]
-atlas = ExtResource("3_wqpab")
+atlas = ExtResource("3_7v2uv")
 region = Rect2(630, 0, 70, 90)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ue3ow"]
@@ -112,6 +112,7 @@ height = 42.0469
 
 [node name="Rogue" type="CharacterBody2D"]
 collision_mask = 2
+motion_mode = 1
 script = ExtResource("1_g1vu1")
 max_hp = 8
 damage = 3

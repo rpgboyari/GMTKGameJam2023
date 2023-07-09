@@ -48,11 +48,11 @@ func start_walking():
 
 func start_grouping(point = (party.archer.position + party.barbarian.position 
 				+ party.knight.position + party.rogue.position) / 4):
-	print_debug("grouping at " + str(point))
+	#print_debug("grouping at " + str(point))
 	walking_progress = 0
 	behavior_state = GROUP_BEHAVIOR_STATE.GROUPING
 	for key in party:
-		print_debug(str(party[key]) + " grouping at " + str(point + party[key].group_offset))
+		#print_debug(str(party[key]) + " grouping at " + str(point + party[key].group_offset))
 		party[key].start_walking(point + party[key].group_offset)
 	
 	await all_done_walking
@@ -84,7 +84,7 @@ func no_enemies_detected():
 		
 func party_member_done_walking():
 	walking_progress += 1
-	print_debug(str(walking_progress) + " party members done walking")
+	#print_debug(str(walking_progress) + " party members done walking")
 	if walking_progress > 3:
 		emit_signal("all_done_walking")
 

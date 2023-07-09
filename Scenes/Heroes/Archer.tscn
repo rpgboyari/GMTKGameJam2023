@@ -1,18 +1,18 @@
 [gd_scene load_steps=8 format=3 uid="uid://dvauy3vkyqs2u"]
 
 [ext_resource type="Script" path="res://Scripts/Heroes/Archer.gd" id="1_kl6mf"]
-[ext_resource type="Texture2D" uid="uid://bvt2wfr5nuyr4" path="res://Sprites/barbarianfront.png" id="2_f73in"]
+[ext_resource type="Texture2D" uid="uid://bvt2wfr5nuyr4" path="res://Sprites/Heroes/barbarianfront.png" id="2_4odu2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ri43"]
-atlas = ExtResource("2_f73in")
+atlas = ExtResource("2_4odu2")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0t5w3"]
-atlas = ExtResource("2_f73in")
+atlas = ExtResource("2_4odu2")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ckjiv"]
-atlas = ExtResource("2_f73in")
+atlas = ExtResource("2_4odu2")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3qgrh"]
@@ -48,6 +48,7 @@ height = 58.0
 
 [node name="Archer" type="CharacterBody2D"]
 collision_mask = 2
+motion_mode = 1
 script = ExtResource("1_kl6mf")
 group_top = true
 max_hp = 10

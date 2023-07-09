@@ -18,10 +18,12 @@ config/icon="res://icon.svg"
 [autoload]
 
 Globals="*res://Scripts/Globals.gd"
+MusicPlayer="*res://Scripts/MusicPlayer.gd"
 
 [display]
 
 window/size/viewport_height=640
+window/stretch/mode="viewport"
 
 [dotnet]
 

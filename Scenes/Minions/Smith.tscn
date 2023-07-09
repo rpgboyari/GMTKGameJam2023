@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://wdwhw33si5dg"]
+
+[ext_resource type="Script" path="res://Scripts/AI_Entity.gd" id="1_f0u35"]
+[ext_resource type="Texture2D" uid="uid://bgvw3mivdyut8" path="res://Sprites/Minions/tankfront.png" id="2_8aw40"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vl6ee"]
+atlas = ExtResource("2_8aw40")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxtof"]
+atlas = ExtResource("2_8aw40")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyxlb"]
+atlas = ExtResource("2_8aw40")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7lbih"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vl6ee")
+}],
+"loop": true,
+"name": &"attacking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxtof")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyxlb")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g48nl"]
+
+[node name="Smith" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_f0u35")
+max_hp = 6
+damage = 1
+attack_time = 1.0
+walk_speed = 80
+team = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7lbih")
+animation = &"attacking"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_g48nl")
