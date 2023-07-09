@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://bx4hl557820mn"]
+
+[ext_resource type="Script" path="res://Scripts/Weapon.gd" id="1_7ka40"]
+[ext_resource type="Texture2D" uid="uid://bgvw3mivdyut8" path="res://Sprites/Minions/tankfront.png" id="2_w83ik"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vl6ee"]
+atlas = ExtResource("2_w83ik")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxtof"]
+atlas = ExtResource("2_w83ik")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyxlb"]
+atlas = ExtResource("2_w83ik")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dx4al"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vl6ee")
+}],
+"loop": true,
+"name": &"attacking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxtof")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyxlb")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[node name="Weapon" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_7ka40")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Timer"]
+sprite_frames = SubResource("SpriteFrames_dx4al")
+animation = &"idle"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

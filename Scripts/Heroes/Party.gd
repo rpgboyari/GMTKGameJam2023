@@ -2,7 +2,7 @@ extends PathFollow2D
 
 signal all_done_walking()
 
-enum GROUP_BEHAVIOR_STATE {WALKING, FIGHTING, IDLE, LOOTING, GROUPING}
+enum GROUP_BEHAVIOR_STATE {WALKING, FIGHTING, LOOTING, GROUPING}
 var behavior_state
 
 @export var max_hp: int
@@ -14,11 +14,19 @@ var potions = max_potions
 @onready var party = {"archer":$Archer, "barbarian":$Barbarian,
 		"knight":$Knight, "rogue":$Rogue}
 
+var enemies_detected = 0
 var walking_progress = 0
 
 func _ready():
 	progress = 0.0
 	start_walking()
+	
+	for key in party:
+		party[key].damaged.connect(_on_party_member_damaged)
+		party[key].enemy_detected.connect(_on_enemy_detected)
+		party[key].enemy_undetected.connect(_on_enemy_undetected)
+		#party_member.no_enemies_detected.connect(_on_no_enemies_detected)
+		party[key].destination_reached.connect(_on_party_member_done_walking)
 	#call_deferred("party_setup")
 	
 func _physics_process(delta):
@@ -40,77 +48,75 @@ func enemy_spotted():
 		start_fighting()
 
 func start_walking():
-	await start_grouping(global_position)
+	await start_grouping()
 	behavior_state = GROUP_BEHAVIOR_STATE.WALKING
 	for key in party:
-		party[key].start_idling()
-		party[key].animator.play("walking")
+		party[key].start_marching()
 
-func start_grouping(point = (party.archer.position + party.barbarian.position 
-				+ party.knight.position + party.rogue.position) / 4):
+func start_grouping(point = global_position): 
+	#point = (party.archer.position + party.barbarian.position 
+	#			+ party.knight.position + party.rogue.position) / 4
 	#print_debug("grouping at " + str(point))
 	walking_progress = 0
 	behavior_state = GROUP_BEHAVIOR_STATE.GROUPING
 	for key in party:
 		#print_debug(str(party[key]) + " grouping at " + str(point + party[key].group_offset))
-		party[key].start_walking(point + party[key].group_offset)
+		party[key].start_grouping(point)
 	
 	await all_done_walking
-	behavior_state = GROUP_BEHAVIOR_STATE.IDLE
 
 func start_fighting():
 	behavior_state = GROUP_BEHAVIOR_STATE.FIGHTING
 	for key in party:
 		party[key].start_fighting()
-func stop_fighting():
-	pass
+
+func start_loot_fighting():
+	for key in party:
+		if key != "archer":
+			party[key].start_fighting()
+func stop_loot_fighting():
+	for key in party:
+		if key != "archer":
+			party[key].start_idling()
 
 func try_drink_potion():
 	if potions > 0:
 		potions -= 1
 		hp = max_hp
 
-func group_damaged(damage):
+func _on_party_member_damaged(damage):
 	hp -= damage
 	if hp <= 0:
 		try_drink_potion()
-		
-func no_enemies_detected():
-	assert(behavior_state == GROUP_BEHAVIOR_STATE.FIGHTING or behavior_state == GROUP_BEHAVIOR_STATE.LOOTING)
-	if (behavior_state == GROUP_BEHAVIOR_STATE.FIGHTING):
-		stop_fighting()
-	elif (behavior_state == GROUP_BEHAVIOR_STATE.LOOTING):
-		pass
-		
-func party_member_done_walking():
+
+func _on_enemy_detected(enemy):
+	for key in party:
+		party[key].add_nearby_enemy(enemy)
+	enemies_detected += 1
+	if behavior_state == GROUP_BEHAVIOR_STATE.LOOTING:
+		start_loot_fighting()
+	elif behavior_state != GROUP_BEHAVIOR_STATE.FIGHTING:
+		start_fighting()
+
+func _on_enemy_undetected(enemy):
+	for key in party:
+		party[key].subtract_nearby_enemy(enemy)
+	enemies_detected -= 1
+	if enemies_detected < 1:
+		if behavior_state == GROUP_BEHAVIOR_STATE.LOOTING:
+			stop_loot_fighting()
+		elif behavior_state != GROUP_BEHAVIOR_STATE.FIGHTING:
+			start_grouping()
+
+#func _on_no_enemies_detected():
+#	assert(behavior_state == GROUP_BEHAVIOR_STATE.FIGHTING or behavior_state == GROUP_BEHAVIOR_STATE.LOOTING)
+#	if (behavior_state == GROUP_BEHAVIOR_STATE.FIGHTING):
+#		stop_fighting()
+#	elif (behavior_state == GROUP_BEHAVIOR_STATE.LOOTING):
+#		stop_loot_fighting()
+
+func _on_party_member_done_walking():
 	walking_progress += 1
 	#print_debug(str(walking_progress) + " party members done walking")
 	if walking_progress > 3:
 		emit_signal("all_done_walking")
-
-func _on_archer_damaged(damage):
-	group_damaged(damage)
-func _on_barbarian_damaged(damage):
-	group_damaged(damage)
-func _on_knight_damaged(damage):
-	group_damaged(damage)
-func _on_rogue_damaged(damage):
-	group_damaged(damage)
-
-func _on_archer_no_enemies_detected():
-	no_enemies_detected()
-func _on_barbarian_no_enemies_detected():
-	no_enemies_detected()
-func _on_knight_no_enemies_detected():
-	no_enemies_detected()
-func _on_rogue_no_enemies_detected():
-	no_enemies_detected()
-	
-func _on_archer_destination_reached():
-	party_member_done_walking()
-func _on_barbarian_destination_reached():
-	party_member_done_walking()
-func _on_knight_destination_reached():
-	party_member_done_walking()
-func _on_rogue_destination_reached():
-	party_member_done_walking()

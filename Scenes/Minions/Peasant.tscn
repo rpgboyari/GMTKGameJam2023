@@ -1,0 +1,117 @@
+[gd_scene load_steps=15 format=3 uid="uid://b17skyddb0g8p"]
+
+[ext_resource type="Script" path="res://Scripts/AI_Entity.gd" id="1_7bwv0"]
+[ext_resource type="Texture2D" uid="uid://rky24saphj0w" path="res://Sprites/Minions/grunt_front-Sheet.png" id="2_8w2m8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0h8lt"]
+atlas = ExtResource("2_8w2m8")
+region = Rect2(216, 0, 54, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nw6oo"]
+atlas = ExtResource("2_8w2m8")
+region = Rect2(216, 0, 54, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqo14"]
+atlas = ExtResource("2_8w2m8")
+region = Rect2(0, 0, 54, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8wa8"]
+atlas = ExtResource("2_8w2m8")
+region = Rect2(54, 0, 54, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jy23"]
+atlas = ExtResource("2_8w2m8")
+region = Rect2(108, 0, 54, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2i8in"]
+atlas = ExtResource("2_8w2m8")
+region = Rect2(162, 0, 54, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unay1"]
+atlas = ExtResource("2_8w2m8")
+region = Rect2(216, 0, 54, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4txn5"]
+atlas = ExtResource("2_8w2m8")
+region = Rect2(270, 0, 54, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n4g6"]
+atlas = ExtResource("2_8w2m8")
+region = Rect2(324, 0, 54, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rirh"]
+atlas = ExtResource("2_8w2m8")
+region = Rect2(378, 0, 54, 74)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e21gv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0h8lt")
+}],
+"loop": true,
+"name": &"attacking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nw6oo")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqo14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8wa8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jy23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2i8in")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unay1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4txn5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5n4g6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rirh")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_18qc8"]
+radius = 7.0
+height = 38.0
+
+[node name="Peasant" type="CharacterBody2D"]
+script = ExtResource("1_7bwv0")
+group_top = null
+group_right = null
+max_hp = null
+damage = null
+attack_time = null
+walk_speed = null
+is_ranged = null
+team = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -32)
+sprite_frames = SubResource("SpriteFrames_e21gv")
+animation = &"walking"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_18qc8")

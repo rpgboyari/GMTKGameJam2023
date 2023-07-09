@@ -43,20 +43,27 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g48nl"]
+radius = 20.0
+height = 76.0
 
 [node name="Smith" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_f0u35")
+group_top = null
+group_right = null
 max_hp = 6
 damage = 1
 attack_time = 1.0
 walk_speed = 80
+is_ranged = null
 team = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_7lbih")
 animation = &"attacking"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
 shape = SubResource("CapsuleShape2D_g48nl")

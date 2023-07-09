@@ -1,8 +1,8 @@
 extends AI_Entity
 
-func _ready():
-	super()
-	Globals.heroes["rogue"] = self
+#func _ready():
+#	super()
+#	Globals.heroes["rogue"] = self
 
 func start_looting():
 	pass

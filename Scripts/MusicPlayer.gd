@@ -3,7 +3,7 @@ extends AudioStreamPlayer
 const title_theme = preload("res://Music/Title_Theme.mp3")
 const dungeon_theme_intro = preload("res://Music/Dungeon_Theme_IMPROVED_NON_LOOP.mp3")
 const dungeon_theme_loop = preload("res://Music/Dungeon_Theme_IMPROVED_LOOP.mp3")
-const chest_theme_intro = preload("res://Music/Chest_Theme.mp3")
+const chest_theme_intro = preload("res://Music/Chest_Theme_FIXED.mp3")
 const chest_theme_loop = preload("res://Music/Chest_Theme_LOOP.mp3")
 
 const time_to_fade = 1

@@ -19,16 +19,3 @@ group_travel_speed = 100
 [node name="Knight" parent="." instance=ExtResource("4_3ay6j")]
 
 [node name="Rogue" parent="." instance=ExtResource("6_nbd3i")]
-
-[connection signal="damaged" from="Archer" to="." method="_on_archer_damaged"]
-[connection signal="destination_reached" from="Archer" to="." method="_on_archer_destination_reached"]
-[connection signal="no_enemies_detected" from="Archer" to="." method="_on_archer_no_enemies_detected"]
-[connection signal="damaged" from="Barbarian" to="." method="_on_barbarian_damaged"]
-[connection signal="destination_reached" from="Barbarian" to="." method="_on_barbarian_destination_reached"]
-[connection signal="no_enemies_detected" from="Barbarian" to="." method="_on_barbarian_no_enemies_detected"]
-[connection signal="damaged" from="Knight" to="." method="_on_knight_damaged"]
-[connection signal="destination_reached" from="Knight" to="." method="_on_knight_destination_reached"]
-[connection signal="no_enemies_detected" from="Knight" to="." method="_on_knight_no_enemies_detected"]
-[connection signal="damaged" from="Rogue" to="." method="_on_rogue_damaged"]
-[connection signal="destination_reached" from="Rogue" to="." method="_on_rogue_destination_reached"]
-[connection signal="no_enemies_detected" from="Rogue" to="." method="_on_rogue_no_enemies_detected"]

@@ -1,8 +1,12 @@
 class_name AI_Entity extends Entity
 
-signal no_enemies_detected()
-signal enemies_detected()
+#signal no_enemies_detected()
+signal enemy_detected(enemy)
+signal enemy_undetected(enemy)
 signal destination_reached()
+
+enum LONG_TERM_STATE {MARCHING, FIGHTING, LOOTING, GROUPING}
+var long_term_state: LONG_TERM_STATE
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
@@ -10,28 +14,27 @@ signal destination_reached()
 @export var group_right: bool
 var group_offset: Vector2
 
-var long_term_state
 
 var regions: Dictionary = {}
 var nearby_enemies: Dictionary = {}
-var target
-var destination
+var target: Entity
+var destination: Vector2
 
 func _ready():
+	super()
 	var group_offset_x = 30 if group_right else -30
 	var group_offset_y = -30 if group_top else 30
 	group_offset = group_offset_x * Vector2.RIGHT + group_offset_y * Vector2.DOWN
-	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	navigation_agent.velocity_computed.connect(_on_velocity_computed)
 	#print_debug(str(self) + " connected to nav agent velocity_computed")
 
 func _physics_process(delta):
-	if immediate_state == INDIVIDUAL_BEHAVIOR_STATE.FIGHTING: # entity is mid attack
+	if immediate_state == IMMEDIATE_STATE.ATTACKING: # entity is mid attack
 		return
-		
-	if long_term_state == INDIVIDUAL_BEHAVIOR_STATE.WALKING:
+	elif immediate_state == IMMEDIATE_STATE.WALKING:
 		if navigation_agent.is_navigation_finished():
 			#print_debug(str(self) + " navigation complete at " + str(global_position))
-			start_idling()
+			idle()
 			emit_signal("destination_reached")
 			return
 		var next_path_position = navigation_agent.get_next_path_position()
@@ -43,9 +46,16 @@ func _physics_process(delta):
 			navigation_agent.set_velocity(move_velocity)
 		else:
 			_on_velocity_computed(move_velocity)
-	if long_term_state == INDIVIDUAL_BEHAVIOR_STATE.FIGHTING:
-		pass
-	if long_term_state == INDIVIDUAL_BEHAVIOR_STATE.IDLE:
+	elif long_term_state == LONG_TERM_STATE.FIGHTING:
+		if !target:
+			find_target()
+		var to_target: Vector2 = target.global_position - global_position
+		var target_distance = to_target.length()
+		if is_ranged || target_distance <= MELEE_RANGE + 5:
+			attack(to_target)
+		else:
+			walk_to(to_target - (to_target * MELEE_RANGE / target_distance))
+	elif long_term_state == LONG_TERM_STATE.LOOTING:
 		pass
 
 func add_nearby_enemy(enemy):
@@ -101,32 +111,42 @@ func find_target():
 				best_enemies.clear()
 		best_value = enemy_value
 		best_enemies.append(enemy)
-	if best_enemies.is_empty():
-		no_enemies_detected.emit()
-	else:
-		target = best_enemies.pick_random()
+	assert(!best_enemies.is_empty())
+	#if best_enemies.is_empty():
+	#	no_enemies_detected.emit()
+	#else:
+	target = best_enemies.pick_random()
 
-func start_walking(point):
+func walk_to(point):
 	#print_debug(str(self) + " started walking towards " + str(point))
 	navigation_agent.target_position = point
 	#print_debug(str(self) + " navigating target of " + str(navigation_agent.target_position))
-	long_term_state = INDIVIDUAL_BEHAVIOR_STATE.WALKING
+	immediate_state = IMMEDIATE_STATE.WALKING
+	animator.play("walking")
+func idle():
+	#print_debug(str(self) + " started idling")
+	immediate_state = IMMEDIATE_STATE.IDLE
+	animator.play("idle")
+
+func start_marching():
+	long_term_state = LONG_TERM_STATE.MARCHING
 	animator.play("walking")
 func start_fighting():
 	#print_debug(str(self) + " started fighting")
-	long_term_state = INDIVIDUAL_BEHAVIOR_STATE.FIGHTING
+	long_term_state = LONG_TERM_STATE.FIGHTING
 	find_target()
-func start_idling():
-	#print_debug(str(self) + " started idling")
-	long_term_state = INDIVIDUAL_BEHAVIOR_STATE.IDLE
-	animator.play("idle")
+func start_looting():
+	long_term_state = LONG_TERM_STATE.LOOTING
+func start_grouping(point):
+	long_term_state = LONG_TERM_STATE.GROUPING
+	walk_to(point + group_offset)
 
 func _on_enemy_entered_region(enemy):
 	add_nearby_enemy(enemy)
-	if long_term_state != INDIVIDUAL_BEHAVIOR_STATE.FIGHTING:
-		emit_signal("enemies_detected")
+	emit_signal("enemy_detected", enemy)
 func _on_enemy_exited_region(enemy):
 	subtract_nearby_enemy(enemy)
+	emit_signal("enemy_undetected", enemy)
 
 func _on_velocity_computed(safe_velocity):
 	#print_debug("safe velocity computed")
