@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bx30kbpgwiwi6"]
+[gd_scene load_steps=3 format=3 uid="uid://bx30kbpgwiwi6"]
 
 [ext_resource type="Script" path="res://Scripts/Weapons/Weapon.gd" id="1_yvhyv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_urvk4"]
+size = Vector2(60, 20)
 
 [node name="Weapon" type="Area2D"]
 z_index = 3
@@ -12,8 +15,8 @@ script = ExtResource("1_yvhyv")
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(30, 0)
+shape = SubResource("RectangleShape2D_urvk4")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 

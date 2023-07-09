@@ -1,3 +1,16 @@
-[gd_scene format=3 uid="uid://kooyf3r4mxxc"]
+[gd_scene load_steps=2 format=3 uid="uid://kooyf3r4mxxc"]
 
-[node name="Peasant_Attack" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v46ri"]
+size = Vector2(20, 40)
+
+[node name="Peasant_Attack" type="Area2D"]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, -2.18557e-07)
+rotation = -1.5708
+shape = SubResource("RectangleShape2D_v46ri")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

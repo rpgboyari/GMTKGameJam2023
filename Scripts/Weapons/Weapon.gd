@@ -2,13 +2,13 @@ class_name Weapon extends Area2D
 
 #@export var shape: Shape2D
 #@export var texture: Texture
-@export var sound_effects: Array[AudioStream]
-@export var projectile: PackedScene
-@export var damage: int
-@export var attack_time: int
-@export var parent_offset: int
-@export var projectile_speed: int
-@export var TESTING: bool
+var sound_effects: Array[AudioStream]
+var projectile: PackedScene
+var damage: int
+var attack_time: int
+var parent_offset: int
+var weapon_shape
+#var TESTING: bool
 
 @onready var attack_timer: Timer = $Timer
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -20,6 +20,8 @@ var projectile_index = 0
 var attack_direction
 
 func _ready():
+	if weapon_shape:
+		collision_shape.shape = weapon_shape
 	attack_timer.timeout.connect(_on_attack_end)
 	#collision_shape.shape = shape
 	#sprite.texture = texture
@@ -38,6 +40,7 @@ func _ready():
 
 func attack(direction, origin = Vector2.ZERO):
 	attack_direction = direction
+	rotation = attack_direction.angle()
 	#print_debug(str(self) + " attacking from " + str(origin) + " at attack_direction: " + str(attack_direction) + " times parent offset: " + str(parent_offset))
 	#print_debug("attack_direction: " + str(attack_direction) + " * parent_offset: " + str(parent_offset) + " + origin: " + str(origin))
 	position = attack_direction * parent_offset + origin
@@ -71,6 +74,6 @@ func _on_body_entered(body):
 	if body.has_method("take_damage"):
 		body.take_damage(damage)
 	print_debug(str(body) + " hit!")
-func _process(delta): # for testing
-	if Input.is_action_just_pressed("Weapon_Test") && TESTING:
-		attack((get_viewport().get_mouse_position() - global_position).normalized())
+#func _process(delta): # for testing
+#	if Input.is_action_just_pressed("Weapon_Test") && TESTING:
+#		attack((get_viewport().get_mouse_position() - global_position).normalized())

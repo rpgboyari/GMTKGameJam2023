@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b17skyddb0g8p"]
+[gd_scene load_steps=28 format=3 uid="uid://b17skyddb0g8p"]
 
 [ext_resource type="Script" path="res://Scripts/AI_Entity.gd" id="1_7bwv0"]
 [ext_resource type="Texture2D" uid="uid://c4ux8x2cm1rv3" path="res://Sprites/Minions/Peasant/grunt_front_atack-Sheet.png" id="2_1bvmx"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://rky24saphj0w" path="res://Sprites/Minions/Peasant/grunt_front-Sheet.png" id="3_efemf"]
 [ext_resource type="AudioStream" uid="uid://66i5bnlafuvs" path="res://Sound Effects/Dead/Peasant/Grunt_Death_3.mp3" id="4_si8kd"]
 [ext_resource type="AudioStream" uid="uid://baxwwbleings7" path="res://Sound Effects/Dead/Peasant/Grunt_Death_4.mp3" id="5_ft4ji"]
+[ext_resource type="PackedScene" uid="uid://bx30kbpgwiwi6" path="res://Scenes/Weapons/Weapon.tscn" id="8_hxslm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h1jgp"]
 atlas = ExtResource("2_1bvmx")
@@ -163,7 +164,7 @@ position = Vector2(-1, -32)
 sprite_frames = SubResource("SpriteFrames_e21gv")
 animation = &"attacking"
 autoplay = "idle"
-frame_progress = 0.570966
+frame_progress = 0.359451
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -172,3 +173,5 @@ shape = SubResource("CapsuleShape2D_18qc8")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="Weapon" parent="." instance=ExtResource("8_hxslm")]

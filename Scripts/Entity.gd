@@ -7,10 +7,13 @@ enum TEAM {HERO, VILLAIN}
 
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var animator: AnimatedSprite2D = $AnimatedSprite2D
-@onready var weapon: Area2D = $Weapon
+@onready var weapon: Weapon = $Weapon
 
-const MELEE_RANGE = 25
+const MELEE_RANGE = 55
 
+@export var weapon_shape: Shape2D
+@export var weapon_sound_effects: Array[AudioStream]
+@export var projectile: PackedScene
 @export var max_hp: int
 @export var damage: int
 @export var attack_time: float
@@ -25,8 +28,11 @@ var individual = false
 var hp = max_hp
 
 func _ready():
-	#weapon.damage = damage
-	#weapon.attack_time = attack_time
+	weapon.weapon_shape = weapon_shape
+	weapon.sound_effects = sound_effects
+	weapon.projectile = projectile
+	weapon.damage = damage
+	weapon.attack_time = attack_time
 	match team:
 		TEAM.HERO:
 			weapon.collision_mask = 0b10
