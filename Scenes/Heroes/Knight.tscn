@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cyav7cb3i21f4"]
+[gd_scene load_steps=24 format=3 uid="uid://cyav7cb3i21f4"]
 
 [ext_resource type="Script" path="res://Scripts/Heroes/Knight.gd" id="1_ul2h0"]
 [ext_resource type="AudioStream" uid="uid://b26fw2vsk7idw" path="res://Sound Effects/Damaged/Knight/Knight_Damege_1.mp3" id="2_2oh2q"]
@@ -7,10 +7,27 @@
 [ext_resource type="AudioStream" uid="uid://cngamtenhglvn" path="res://Sound Effects/Damaged/Knight/Knight_Damege_2.mp3" id="3_u3b3j"]
 [ext_resource type="AudioStream" uid="uid://bmgtnpnaui77g" path="res://Sound Effects/Damaged/Knight/Knight_Damege_3.mp3" id="4_fkyxb"]
 [ext_resource type="PackedScene" uid="uid://bx30kbpgwiwi6" path="res://Scenes/Weapons/Weapon.tscn" id="4_s7jxc"]
+[ext_resource type="Texture2D" uid="uid://dnv1m7pg136ir" path="res://Sprites/Heroes/Knight/kinght_atack-Sheet.png" id="5_xvupr"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ebdv6"]
-atlas = ExtResource("2_24bu0")
-region = Rect2(0, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmhp8"]
+atlas = ExtResource("5_xvupr")
+region = Rect2(0, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnftv"]
+atlas = ExtResource("5_xvupr")
+region = Rect2(90, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pqcy"]
+atlas = ExtResource("5_xvupr")
+region = Rect2(180, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8kn8"]
+atlas = ExtResource("5_xvupr")
+region = Rect2(270, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3h16"]
+atlas = ExtResource("5_xvupr")
+region = Rect2(360, 0, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7dmsu"]
 atlas = ExtResource("2_24bu0")
@@ -48,11 +65,23 @@ region = Rect2(384, 0, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ebdv6")
+"texture": SubResource("AtlasTexture_jmhp8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnftv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pqcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8kn8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3h16")
 }],
 "loop": true,
 "name": &"attacking",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -108,8 +137,9 @@ sound_effects = [ExtResource("2_2oh2q"), ExtResource("3_u3b3j"), ExtResource("4_
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -26)
 sprite_frames = SubResource("SpriteFrames_swdet")
-animation = &"walking"
+animation = &"attacking"
 autoplay = "idle"
+frame_progress = 0.442415
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3.8147e-06)

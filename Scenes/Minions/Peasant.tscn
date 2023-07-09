@@ -1,8 +1,12 @@
-[gd_scene load_steps=23 format=3 uid="uid://b17skyddb0g8p"]
+[gd_scene load_steps=27 format=3 uid="uid://b17skyddb0g8p"]
 
 [ext_resource type="Script" path="res://Scripts/AI_Entity.gd" id="1_7bwv0"]
 [ext_resource type="Texture2D" uid="uid://c4ux8x2cm1rv3" path="res://Sprites/Minions/Peasant/grunt_front_atack-Sheet.png" id="2_1bvmx"]
+[ext_resource type="AudioStream" uid="uid://d0iolo0deqpl1" path="res://Sound Effects/Dead/Peasant/Grunt_Death.mp3" id="2_ebv8v"]
+[ext_resource type="AudioStream" uid="uid://dnoashwv4jvej" path="res://Sound Effects/Dead/Peasant/Grunt_Death_2.mp3" id="3_e1rbl"]
 [ext_resource type="Texture2D" uid="uid://rky24saphj0w" path="res://Sprites/Minions/Peasant/grunt_front-Sheet.png" id="3_efemf"]
+[ext_resource type="AudioStream" uid="uid://66i5bnlafuvs" path="res://Sound Effects/Dead/Peasant/Grunt_Death_3.mp3" id="4_si8kd"]
+[ext_resource type="AudioStream" uid="uid://baxwwbleings7" path="res://Sound Effects/Dead/Peasant/Grunt_Death_4.mp3" id="5_ft4ji"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h1jgp"]
 atlas = ExtResource("2_1bvmx")
@@ -147,6 +151,12 @@ height = 38.0
 
 [node name="Peasant" type="CharacterBody2D"]
 script = ExtResource("1_7bwv0")
+max_hp = 3
+damage = 2
+attack_time = 1.0
+walk_speed = 100
+team = 1
+sound_effects = [ExtResource("2_ebv8v"), ExtResource("3_e1rbl"), ExtResource("4_si8kd"), ExtResource("5_ft4ji")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -32)

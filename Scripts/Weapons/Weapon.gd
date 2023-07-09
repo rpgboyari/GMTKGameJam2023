@@ -12,7 +12,6 @@ class_name Weapon extends Area2D
 
 @onready var attack_timer: Timer = $Timer
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
-@onready var sprite: Sprite2D = $Sprite2D
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 

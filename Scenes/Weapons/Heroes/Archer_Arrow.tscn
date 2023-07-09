@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c6lhnj5dyfw8r"]
 
 [ext_resource type="Script" path="res://Scripts/Weapons/Projectile.gd" id="1_imle8"]
-[ext_resource type="Texture2D" uid="uid://bvt2wfr5nuyr4" path="res://Sprites/Heroes/Barbarian/barbarianfront.png" id="2_lt5fm"]
+[ext_resource type="Texture2D" uid="uid://b7nr0yav2axk5" path="res://Sprites/Projectiles/arrow.png" id="2_53ti0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vi44q"]
 radius = 5.09902
@@ -19,8 +19,7 @@ one_shot = true
 shape = SubResource("CircleShape2D_vi44q")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_lt5fm")
+texture = ExtResource("2_53ti0")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 

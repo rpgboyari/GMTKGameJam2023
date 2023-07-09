@@ -44,7 +44,7 @@ func _on_spawn_smith_pressed():
 
 func new_choice(choice):
 	print_debug(choice + " clicked")
-	var thumbnail: Texture2D = thumbnails["peasant"]
+	var thumbnail: Texture2D = thumbnails[choice]
 	shape_cast_offset_x = thumbnail.get_width() / 2
 	shape_cast_offset_y = thumbnail.get_height()
 	Input.set_custom_mouse_cursor(thumbnail)

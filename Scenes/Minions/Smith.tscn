@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://wdwhw33si5dg"]
+[gd_scene load_steps=10 format=3 uid="uid://wdwhw33si5dg"]
 
 [ext_resource type="Script" path="res://Scripts/AI_Entity.gd" id="1_f0u35"]
 [ext_resource type="Texture2D" uid="uid://bgvw3mivdyut8" path="res://Sprites/Minions/Smith/tankfront.png" id="2_8aw40"]
+[ext_resource type="AudioStream" uid="uid://dmjkm4gj10x36" path="res://Sound Effects/Dead/Smith/Tank_Death_1.mp3" id="2_88mac"]
+[ext_resource type="AudioStream" uid="uid://b55ocfkhnxbcb" path="res://Sound Effects/Dead/Smith/Tank_Death_2.mp3" id="3_4ivds"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vl6ee"]
 atlas = ExtResource("2_8aw40")
@@ -51,12 +53,13 @@ motion_mode = 1
 script = ExtResource("1_f0u35")
 group_top = null
 group_right = null
-max_hp = 6
+max_hp = 7
 damage = 1
 attack_time = 1.0
 walk_speed = 80
 is_ranged = null
 team = 1
+sound_effects = [ExtResource("2_88mac"), ExtResource("3_4ivds")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
@@ -67,3 +70,7 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_g48nl")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

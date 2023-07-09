@@ -43,13 +43,17 @@ func attack(direction):
 	immediate_state = IMMEDIATE_STATE.IDLE
 
 func take_damage(damage):
-	if team == TEAM.VILLAIN:
+	if team == TEAM.HERO:
 		play_random_sound()
 	if individual:
 		hp -= damage
 		if hp <= 0:
-			free()
+			die()
 	damaged.emit(damage)
+func die():
+	if team == TEAM.VILLAIN:
+		play_random_sound()
+	free()
 
 func play_random_sound():
 	var to_play = sound_effects.pick_random()
