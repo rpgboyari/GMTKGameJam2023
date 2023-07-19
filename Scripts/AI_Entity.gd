@@ -48,7 +48,8 @@ func _physics_process(delta):
 			_on_velocity_computed(move_velocity)
 	elif long_term_state == LONG_TERM_STATE.FIGHTING:
 		if !target:
-			find_target()
+			if !find_target():
+				return
 		var to_target: Vector2 = target.global_position - global_position
 		var target_distance = to_target.length()
 		if is_ranged || target_distance <= MELEE_RANGE + 5:
@@ -126,11 +127,14 @@ func find_target():
 				best_enemies.clear()
 		best_value = enemy_value
 		best_enemies.append(enemy)
-	assert(!best_enemies.is_empty())
-	#if best_enemies.is_empty():
+	#assert(!best_enemies.is_empty())
+	if best_enemies.is_empty():
+		long_term_state = LONG_TERM_STATE.IDLING
+		return false
 	#	no_enemies_detected.emit()
 	#else:
 	target = best_enemies.pick_random()
+	return true
 
 func walk_to(point):
 	#print_debug(str(self) + " started walking towards " + str(point))

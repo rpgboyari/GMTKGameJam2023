@@ -131,10 +131,7 @@ motion_mode = 1
 script = ExtResource("1_ul2h0")
 damage_negation = 1
 group_right = true
-weapon_sound_effects = Array[AudioStream]([ExtResource("2_mo8yj"), ExtResource("3_3450e"), ExtResource("4_vnufw")])
 max_hp = 10
-damage = 2
-attack_time = 1.0
 walk_speed = 80
 sound_effects = [ExtResource("2_2oh2q"), ExtResource("3_u3b3j"), ExtResource("4_fkyxb")]
 
@@ -154,7 +151,8 @@ shape = SubResource("CapsuleShape2D_nbtgq")
 avoidance_mask = 2
 
 [node name="Weapon" parent="." instance=ExtResource("4_s7jxc")]
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Weapon"]
+sound_effects = Array[AudioStream]([ExtResource("2_mo8yj"), ExtResource("3_3450e"), ExtResource("4_vnufw")])
+damage = 2
+attack_time = 1.0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

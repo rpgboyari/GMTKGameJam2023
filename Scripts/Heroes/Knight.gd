@@ -7,7 +7,7 @@ extends AI_Entity
 #	Globals.heroes["knight"] = self
 
 func enemy_value(enemy): # targets the deadliest enemy
-	return -enemy.damage
+	return -enemy.get_damage()
 
 func take_damage(damage):
 	damage = max(damage - damage_negation, 0)

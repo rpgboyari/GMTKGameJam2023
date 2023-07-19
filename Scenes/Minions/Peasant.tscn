@@ -153,11 +153,10 @@ radius = 7.0
 height = 38.0
 
 [node name="Peasant" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_7bwv0")
-weapon_sound_effects = Array[AudioStream]([ExtResource("2_oev1g"), ExtResource("3_xrojm")])
 max_hp = 3
-damage = 2
-attack_time = 1.0
 walk_speed = 100
 team = 1
 individual = true
@@ -178,3 +177,6 @@ shape = SubResource("CapsuleShape2D_18qc8")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="Weapon" parent="." instance=ExtResource("8_hxslm")]
+sound_effects = Array[AudioStream]([ExtResource("2_oev1g"), ExtResource("3_xrojm")])
+damage = 2
+attack_time = 1.0

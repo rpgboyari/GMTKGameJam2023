@@ -4,9 +4,6 @@
 
 [node name="Projectile" type="Area2D"]
 script = ExtResource("1_2wqay")
-shape = null
-texture = null
-sound_effect = null
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

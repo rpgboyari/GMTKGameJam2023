@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://byde3rjqpeesa"
+path="res://.godot/imported/Rogue_Attack.mp3-81f7ca4b5bf81292269c0e930c61d0a4.mp3str"
+
+[deps]
+
+source_file="res://Sound Effects/Attacks/Rogue/Rogue_Attack.mp3"
+dest_files=["res://.godot/imported/Rogue_Attack.mp3-81f7ca4b5bf81292269c0e930c61d0a4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

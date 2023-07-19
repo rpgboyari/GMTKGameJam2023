@@ -111,10 +111,11 @@ func _on_enemy_undetected(enemy):
 	for key in party:
 		party[key].subtract_nearby_enemy(enemy)
 	enemies_detected -= 1
+	print_debug("enemy undetected, total enemies still detected: " + str(enemies_detected))
 	if enemies_detected < 1:
 		if behavior_state == GROUP_BEHAVIOR_STATE.LOOTING:
 			stop_loot_fighting()
-		elif behavior_state != GROUP_BEHAVIOR_STATE.FIGHTING:
+		elif behavior_state == GROUP_BEHAVIOR_STATE.FIGHTING:
 			start_walking()
 
 #func _on_no_enemies_detected():

@@ -1,9 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://dkxru42b4ie05"]
+[gd_scene load_steps=22 format=3 uid="uid://dkxru42b4ie05"]
 
 [ext_resource type="Script" path="res://Scripts/Heroes/Rogue.gd" id="1_g1vu1"]
+[ext_resource type="AudioStream" uid="uid://byde3rjqpeesa" path="res://Sound Effects/Attacks/Rogue/Rogue_Attack.mp3" id="2_ha70o"]
 [ext_resource type="Texture2D" uid="uid://r68c6vueq7yg" path="res://Sprites/Heroes/Rogue/rouge.png" id="2_mn7af"]
 [ext_resource type="Texture2D" uid="uid://cn1mvxhrlmxlq" path="res://Sprites/Heroes/Rogue/rouge-Sheet.png" id="3_gf4t3"]
+[ext_resource type="AudioStream" uid="uid://d2u6ifio2s5ms" path="res://Sound Effects/Attacks/Rogue/Rogue_Attack_2.mp3" id="3_qttt2"]
 [ext_resource type="PackedScene" uid="uid://bx30kbpgwiwi6" path="res://Scenes/Weapons/Weapon.tscn" id="4_jomrc"]
+[ext_resource type="AudioStream" uid="uid://cv5w5l0yd51la" path="res://Sound Effects/Attacks/Rogue/Rogue_Attack_3.mp3" id="4_uxaye"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_16rfs"]
 atlas = ExtResource("2_mn7af")
@@ -116,8 +119,6 @@ collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_g1vu1")
 max_hp = 8
-damage = 3
-attack_time = 1.0
 walk_speed = 110
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -134,7 +135,9 @@ shape = SubResource("CapsuleShape2D_4bqcq")
 avoidance_mask = 2
 
 [node name="Weapon" parent="." instance=ExtResource("4_jomrc")]
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Weapon"]
+TESTING = true
+sound_effects = Array[AudioStream]([ExtResource("2_ha70o"), ExtResource("3_qttt2"), ExtResource("4_uxaye")])
+damage = 3
+attack_time = 1.0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

@@ -15,6 +15,7 @@ var time_spent_fading
 var current_track
 
 func _ready():
+	finished.connect(_on_finished)
 	current_track = title_theme
 	finish_changing_track()
 
