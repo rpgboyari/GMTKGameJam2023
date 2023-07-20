@@ -57,7 +57,9 @@ func enemy_spotted():
 		start_fighting()
 
 func start_walking():
+	print_debug("starting grouping before walk...")
 	await start_grouping()
+	print_debug("...finished grouping, starting to walk")
 	behavior_state = GROUP_BEHAVIOR_STATE.WALKING
 	for key in party:
 		party[key].start_marching()
@@ -127,6 +129,6 @@ func _on_enemy_undetected(enemy):
 
 func _on_party_member_done_walking():
 	walking_progress += 1
-	#print_debug(str(walking_progress) + " party members done walking")
+	print_debug(str(walking_progress) + " party members done walking")
 	if walking_progress > 3:
 		emit_signal("all_done_walking")
