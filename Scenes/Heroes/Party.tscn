@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dkxru42b4ie05" path="res://Scenes/Heroes/Rogue.tscn" id="6_nbd3i"]
 
 [node name="Party" type="PathFollow2D"]
+y_sort_enabled = true
 script = ExtResource("1_5ydpr")
 max_hp = 20
 max_potions = 6

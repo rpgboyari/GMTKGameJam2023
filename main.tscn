@@ -62,6 +62,7 @@ layer_0/tile_data = PackedInt32Array(720906, 196608, 1, 786443, 196608, 1, 78644
 navigation_polygon = SubResource("NavigationPolygon_urm8s")
 
 [node name="Path2D" type="Path2D" parent="."]
+y_sort_enabled = true
 curve = SubResource("Curve2D_dssne")
 
 [node name="Party" parent="Path2D" instance=ExtResource("4_2687l")]
@@ -178,6 +179,7 @@ grow_vertical = 0
 texture_normal = ExtResource("6_17m5u")
 
 [node name="Minion_Placer" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("7_cb4sl")
 thumbnails = {
 "peasant": ExtResource("6_17m5u"),

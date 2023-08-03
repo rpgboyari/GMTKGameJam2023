@@ -29,7 +29,7 @@ func _input(event):
 			else:
 				var new_minion = active_choice.instantiate()
 				new_minion.position = adjusted_position
-				get_node("/root").add_child(new_minion)
+				add_child(new_minion)
 				print_debug(str(new_minion) + " added to /root")
 				unset_choice()
 				play_random_sound(succesful_place_sounds)
