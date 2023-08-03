@@ -8,8 +8,7 @@ signal destination_reached()
 enum LONG_TERM_STATE {MARCHING, FIGHTING, LOOTING, GROUPING, IDLING}
 var long_term_state: LONG_TERM_STATE
 
-#@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
-var navigation_agent: NavigationAgent2D
+@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
 @export var group_top: bool
 @export var group_right: bool
@@ -22,10 +21,7 @@ var target: Entity
 var destination: Vector2
 
 func _ready():
-	print_debug(str(self) + " getting ready")
 	super()
-	navigation_agent = $NavigationAgent2D
-	print_debug("in: " + str(self) + "'s ready, navigation_agent set to " + str(navigation_agent))
 	var group_offset_x = 30 if group_right else -30
 	var group_offset_y = -30 if group_top else 30
 	group_offset = group_offset_x * Vector2.RIGHT + group_offset_y * Vector2.DOWN

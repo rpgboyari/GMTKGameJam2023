@@ -11,16 +11,8 @@ var hp = max_hp
 var potions = max_potions
 @export var group_travel_speed: int
 
-const Archer = preload("res://Scenes/Heroes/Archer.tscn")
-const Barbarian = preload("res://Scenes/Heroes/Barbarian.tscn")
-const Knight = preload("res://Scenes/Heroes/Knight.tscn")
-const Rogue = preload("res://Scenes/Heroes/Rogue.tscn")
-
-@onready var party: Dictionary = {
-		"archer":Archer.instantiate(),
-		"barbarian":Barbarian.instantiate(),
-		"knight":Knight.instantiate(),
-		"rogue":Rogue.instantiate()}
+@onready var party = {"archer":$Archer, "barbarian":$Barbarian,
+		"knight":$Knight, "rogue":$Rogue}
 
 var enemies_detected = 0
 var walking_progress = 0
@@ -28,19 +20,16 @@ var travel_direction = Vector2.RIGHT
 var previous_position
 
 func _ready():
+	previous_position = position
+	progress = 0.0
+	start_walking()
+	
 	for key in party:
 		party[key].damaged.connect(_on_party_member_damaged)
 		party[key].enemy_detected.connect(_on_enemy_detected)
 		party[key].enemy_undetected.connect(_on_enemy_undetected)
 		#party_member.no_enemies_detected.connect(_on_no_enemies_detected)
 		party[key].destination_reached.connect(_on_party_member_done_walking)
-		party[key].position = position
-		add_child(party[key])
-	
-	previous_position = position
-	progress = 0.0
-	get_tree().create_timer(1).timeout.connect(start_walking)
-	
 	#call_deferred("party_setup")
 	
 func _physics_process(delta):
@@ -48,10 +37,6 @@ func _physics_process(delta):
 		progress += group_travel_speed * delta
 		var vector_travelled = position - previous_position
 		var direction_travelled = vector_travelled.normalized()
-		
-		for key in party:
-			party[key].position += vector_travelled
-		
 		if !travel_direction or travel_direction != direction_travelled:
 			travel_direction = direction_travelled
 			start_walking()

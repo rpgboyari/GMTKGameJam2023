@@ -1,10 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://klbbqwbyny2e"]
+[gd_scene load_steps=6 format=3 uid="uid://klbbqwbyny2e"]
 
 [ext_resource type="Script" path="res://Scripts/Heroes/Party.gd" id="1_5ydpr"]
+[ext_resource type="PackedScene" uid="uid://dvauy3vkyqs2u" path="res://Scenes/Heroes/Archer.tscn" id="2_jjydw"]
+[ext_resource type="PackedScene" uid="uid://b1oh4peeh0w7g" path="res://Scenes/Heroes/Barbarian.tscn" id="3_aubj8"]
+[ext_resource type="PackedScene" uid="uid://cyav7cb3i21f4" path="res://Scenes/Heroes/Knight.tscn" id="4_3ay6j"]
+[ext_resource type="PackedScene" uid="uid://dkxru42b4ie05" path="res://Scenes/Heroes/Rogue.tscn" id="6_nbd3i"]
 
 [node name="Party" type="PathFollow2D"]
-y_sort_enabled = true
 script = ExtResource("1_5ydpr")
 max_hp = 20
-max_potions = 3
+max_potions = 6
 group_travel_speed = 100
+
+[node name="Archer" parent="." instance=ExtResource("2_jjydw")]
+
+[node name="Barbarian" parent="." instance=ExtResource("3_aubj8")]
+
+[node name="Knight" parent="." instance=ExtResource("4_3ay6j")]
+
+[node name="Rogue" parent="." instance=ExtResource("6_nbd3i")]
