@@ -47,6 +47,7 @@ func _on_finished():
 		finish_changing_track()
 	elif current_track == dungeon_theme_intro:
 		current_track = dungeon_theme_loop
+		finish_changing_track()
 	else:
 		play()
 
