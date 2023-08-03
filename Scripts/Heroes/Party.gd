@@ -35,7 +35,7 @@ func _ready():
 		#party_member.no_enemies_detected.connect(_on_no_enemies_detected)
 		party[key].destination_reached.connect(_on_party_member_done_walking)
 		party[key].position = position
-		get_node("/root/Node2D").add_child(party[key])
+		add_child(party[key])
 	
 	previous_position = position
 	progress = 0.0
