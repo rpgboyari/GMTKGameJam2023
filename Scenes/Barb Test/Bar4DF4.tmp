@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5slqc765dknf"]
+
+[ext_resource type="Script" path="res://Scenes/Barb Test/Barbarian test.gd" id="1_hjl1i"]
+[ext_resource type="PackedScene" uid="uid://b1oh4peeh0w7g" path="res://Scenes/Entities/Heroes/Barbarian.tscn" id="2_v0lkg"]
+[ext_resource type="Script" path="res://Scenes/Barb Test/testbaddie.gd" id="3_0rgh8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b27yl"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_qksis"]
+
+[node name="Barbarian test" type="Node2D"]
+script = ExtResource("1_hjl1i")
+
+[node name="Barbarian" parent="." instance=ExtResource("2_v0lkg")]
+damage = null
+is_ranged = null
+team = null
+attack_sounds = null
+hurt_sounds = null
+death_sounds = null
+
+[node name="testbaddie" type="StaticBody2D" parent="."]
+position = Vector2(30, 30)
+script = ExtResource("3_0rgh8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="testbaddie"]
+shape = SubResource("RectangleShape2D_b27yl")
+
+[node name="Sprite2D" type="Sprite2D" parent="testbaddie"]
+position = Vector2(3.57628e-07, 4.76837e-07)
+scale = Vector2(20, 20)
+texture = SubResource("PlaceholderTexture2D_qksis")

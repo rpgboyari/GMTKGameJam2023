@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ikusj77idork"]
+
+[ext_resource type="Script" path="res://Scripts/Heroes/Party_Core.gd" id="1_dxvxt"]
+
+[node name="Party_Core" type="PathFollow2D"]
+position = Vector2(32, 592)
+script = ExtResource("1_dxvxt")

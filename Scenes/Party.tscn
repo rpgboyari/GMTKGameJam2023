@@ -1,0 +1,18 @@
+[gd_scene load_steps=6 format=3 uid="uid://bnjfkyyq0u5ol"]
+
+[ext_resource type="Script" path="res://Scripts/Heroes/Party.gd" id="1_c8qbp"]
+[ext_resource type="PackedScene" uid="uid://dvauy3vkyqs2u" path="res://Scenes/Entities/Heroes/Archer.tscn" id="2_2fbrv"]
+[ext_resource type="PackedScene" uid="uid://b1oh4peeh0w7g" path="res://Scenes/Entities/Heroes/Barbarian.tscn" id="3_a141r"]
+[ext_resource type="PackedScene" uid="uid://cyav7cb3i21f4" path="res://Scenes/Entities/Heroes/Knight.tscn" id="4_u0ylo"]
+[ext_resource type="PackedScene" uid="uid://dkxru42b4ie05" path="res://Scenes/Entities/Heroes/Rogue.tscn" id="5_231xw"]
+
+[node name="Party" type="Node2D"]
+script = ExtResource("1_c8qbp")
+
+[node name="Archer" parent="." instance=ExtResource("2_2fbrv")]
+
+[node name="Barbarian" parent="." instance=ExtResource("3_a141r")]
+
+[node name="Knight" parent="." instance=ExtResource("4_u0ylo")]
+
+[node name="Rogue" parent="." instance=ExtResource("5_231xw")]

@@ -1,12 +1,14 @@
-[gd_scene load_steps=27 format=3 uid="uid://wdwhw33si5dg"]
+[gd_scene load_steps=33 format=3 uid="uid://wdwhw33si5dg"]
 
-[ext_resource type="Script" path="res://Scripts/AI_Entity.gd" id="1_f0u35"]
+[ext_resource type="Script" path="res://Scripts/Entity.gd" id="1_47q4s"]
 [ext_resource type="Texture2D" uid="uid://bgvw3mivdyut8" path="res://Sprites/Minions/Smith/tankfront.png" id="2_8aw40"]
-[ext_resource type="AudioStream" uid="uid://dmjkm4gj10x36" path="res://Sound Effects/Dead/Smith/Tank_Death_1.mp3" id="2_88mac"]
-[ext_resource type="AudioStream" uid="uid://b55ocfkhnxbcb" path="res://Sound Effects/Dead/Smith/Tank_Death_2.mp3" id="3_4ivds"]
+[ext_resource type="AudioStream" uid="uid://b7h21re6x3k7m" path="res://Sound Effects/Attacks/Smith/Tank_Attack.mp3" id="2_lc7kn"]
+[ext_resource type="AudioStream" uid="uid://cqgm01dg472hv" path="res://Sound Effects/Attacks/Smith/Tank_Attack_2.mp3" id="3_k3xft"]
 [ext_resource type="Texture2D" uid="uid://d140tr2x4mxuk" path="res://Sprites/Minions/Smith/tankfront_atack-Sheet.png" id="4_mse0m"]
+[ext_resource type="AudioStream" uid="uid://dmjkm4gj10x36" path="res://Sound Effects/Dead/Smith/Tank_Death_1.mp3" id="4_tknav"]
+[ext_resource type="AudioStream" uid="uid://b55ocfkhnxbcb" path="res://Sound Effects/Dead/Smith/Tank_Death_2.mp3" id="5_26608"]
+[ext_resource type="Script" path="res://Scripts/Attacks/Melee_Attack.gd" id="5_unjqj"]
 [ext_resource type="Texture2D" uid="uid://bxdxie3sb866" path="res://Sprites/Minions/Smith/tankfront-Sheet.png" id="5_yo5dh"]
-[ext_resource type="PackedScene" uid="uid://bx30kbpgwiwi6" path="res://Scenes/Weapons/Weapon.tscn" id="7_wksgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t6j0q"]
 atlas = ExtResource("4_mse0m")
@@ -99,7 +101,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"attacking",
-"speed": 12.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -107,7 +109,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -142,30 +144,42 @@ animations = [{
 }],
 "loop": true,
 "name": &"walking",
-"speed": 8.0
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g48nl"]
 radius = 20.0
 height = 76.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oi8bq"]
+size = Vector2(25, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdq8g"]
+size = Vector2(20, 39.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_abtfi"]
+size = Vector2(36, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qebfl"]
+size = Vector2(71, 20)
+
 [node name="Smith" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 2
+input_pickable = true
 motion_mode = 1
-script = ExtResource("1_f0u35")
+script = ExtResource("1_47q4s")
 max_hp = 7
+damage = 1
 walk_speed = 80
 team = 1
-individual = true
-sound_effects = [ExtResource("2_88mac"), ExtResource("3_4ivds")]
+attack_sounds = [ExtResource("2_lc7kn"), ExtResource("3_k3xft")]
+death_sounds = [ExtResource("4_tknav"), ExtResource("5_26608")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_7lbih")
-animation = &"attacking"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.197899
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -175,6 +189,30 @@ shape = SubResource("CapsuleShape2D_g48nl")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
-[node name="Weapon" parent="." instance=ExtResource("7_wksgy")]
-damage = 1
-attack_time = 1.0
+[node name="Attack" type="Area2D" parent="."]
+script = ExtResource("5_unjqj")
+
+[node name="f1-0" type="CollisionShape2D" parent="Attack"]
+position = Vector2(29, -18)
+shape = SubResource("RectangleShape2D_oi8bq")
+disabled = true
+
+[node name="f2-0" type="CollisionShape2D" parent="Attack"]
+position = Vector2(38, 0.25)
+shape = SubResource("RectangleShape2D_kdq8g")
+disabled = true
+
+[node name="f3-0" type="CollisionShape2D" parent="Attack"]
+position = Vector2(24, 16)
+shape = SubResource("RectangleShape2D_abtfi")
+disabled = true
+
+[node name="f4-0" type="CollisionShape2D" parent="Attack"]
+position = Vector2(0.5, 21)
+shape = SubResource("RectangleShape2D_qebfl")
+disabled = true
+
+[node name="f5-0" type="CollisionShape2D" parent="Attack"]
+position = Vector2(0.5, 21)
+shape = SubResource("RectangleShape2D_qebfl")
+disabled = true

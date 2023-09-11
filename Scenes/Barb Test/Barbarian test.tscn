@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5slqc765dknf"]
+
+[ext_resource type="Script" path="res://Scenes/Barb Test/Barbarian test.gd" id="1_hjl1i"]
+[ext_resource type="PackedScene" uid="uid://b1oh4peeh0w7g" path="res://Scenes/Entities/Heroes/Barbarian.tscn" id="2_v0lkg"]
+[ext_resource type="PackedScene" uid="uid://b17skyddb0g8p" path="res://Scenes/Entities/Minions/Peasant.tscn" id="3_o3uc1"]
+[ext_resource type="PackedScene" uid="uid://cyav7cb3i21f4" path="res://Scenes/Entities/Heroes/Knight.tscn" id="4_8q4rb"]
+[ext_resource type="PackedScene" uid="uid://dkxru42b4ie05" path="res://Scenes/Entities/Heroes/Rogue.tscn" id="5_6wog6"]
+[ext_resource type="PackedScene" uid="uid://dvauy3vkyqs2u" path="res://Scenes/Entities/Heroes/Archer.tscn" id="6_1vu1n"]
+[ext_resource type="PackedScene" uid="uid://wdwhw33si5dg" path="res://Scenes/Entities/Minions/Smith.tscn" id="7_gxcoe"]
+
+[node name="Barbarian test" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_hjl1i")
+
+[node name="Barbarian" parent="." instance=ExtResource("2_v0lkg")]
+position = Vector2(592, 331)
+input_pickable = true
+
+[node name="Peasant" parent="." instance=ExtResource("3_o3uc1")]
+position = Vector2(696, 377)
+
+[node name="Knight" parent="." instance=ExtResource("4_8q4rb")]
+position = Vector2(369, 505)
+input_pickable = true
+
+[node name="Rogue" parent="." instance=ExtResource("5_6wog6")]
+position = Vector2(1036, 142)
+input_pickable = true
+
+[node name="Peasant2" parent="." instance=ExtResource("3_o3uc1")]
+position = Vector2(285, 559)
+
+[node name="Smith" parent="." instance=ExtResource("7_gxcoe")]
+position = Vector2(481, 298)
+
+[node name="Peasant3" parent="." instance=ExtResource("3_o3uc1")]
+position = Vector2(266, 169)
+
+[node name="Smith2" parent="." instance=ExtResource("7_gxcoe")]
+position = Vector2(115, 156)
+
+[node name="Archer" parent="." instance=ExtResource("6_1vu1n")]
+position = Vector2(108, 477)
+input_pickable = true

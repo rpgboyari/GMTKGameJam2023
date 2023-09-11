@@ -1,15 +1,15 @@
-[gd_scene load_steps=30 format=3 uid="uid://b17skyddb0g8p"]
+[gd_scene load_steps=35 format=3 uid="uid://b17skyddb0g8p"]
 
-[ext_resource type="Script" path="res://Scripts/AI_Entity.gd" id="1_7bwv0"]
+[ext_resource type="Script" path="res://Scripts/Entity.gd" id="1_ab6jh"]
 [ext_resource type="Texture2D" uid="uid://c4ux8x2cm1rv3" path="res://Sprites/Minions/Peasant/grunt_front_atack-Sheet.png" id="2_1bvmx"]
-[ext_resource type="AudioStream" uid="uid://d0iolo0deqpl1" path="res://Sound Effects/Dead/Peasant/Grunt_Death.mp3" id="2_ebv8v"]
 [ext_resource type="AudioStream" uid="uid://cgwiu2jss26f6" path="res://Sound Effects/Attacks/Peasant/Grunt_Slash.mp3" id="2_oev1g"]
-[ext_resource type="AudioStream" uid="uid://dnoashwv4jvej" path="res://Sound Effects/Dead/Peasant/Grunt_Death_2.mp3" id="3_e1rbl"]
+[ext_resource type="AudioStream" uid="uid://d0iolo0deqpl1" path="res://Sound Effects/Dead/Peasant/Grunt_Death.mp3" id="2_qhq4d"]
+[ext_resource type="AudioStream" uid="uid://dnoashwv4jvej" path="res://Sound Effects/Dead/Peasant/Grunt_Death_2.mp3" id="3_7w6q0"]
 [ext_resource type="Texture2D" uid="uid://rky24saphj0w" path="res://Sprites/Minions/Peasant/grunt_front-Sheet.png" id="3_efemf"]
 [ext_resource type="AudioStream" uid="uid://cwsqh0dc3x0px" path="res://Sound Effects/Attacks/Peasant/Grunt_Slash_2.mp3" id="3_xrojm"]
-[ext_resource type="AudioStream" uid="uid://66i5bnlafuvs" path="res://Sound Effects/Dead/Peasant/Grunt_Death_3.mp3" id="4_si8kd"]
-[ext_resource type="AudioStream" uid="uid://baxwwbleings7" path="res://Sound Effects/Dead/Peasant/Grunt_Death_4.mp3" id="5_ft4ji"]
-[ext_resource type="PackedScene" uid="uid://bx30kbpgwiwi6" path="res://Scenes/Weapons/Weapon.tscn" id="8_hxslm"]
+[ext_resource type="Script" path="res://Scripts/Attacks/Melee_Attack.gd" id="4_fjt3c"]
+[ext_resource type="AudioStream" uid="uid://66i5bnlafuvs" path="res://Sound Effects/Dead/Peasant/Grunt_Death_3.mp3" id="4_rbhty"]
+[ext_resource type="AudioStream" uid="uid://baxwwbleings7" path="res://Sound Effects/Dead/Peasant/Grunt_Death_4.mp3" id="5_dia5v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h1jgp"]
 atlas = ExtResource("2_1bvmx")
@@ -82,7 +82,7 @@ region = Rect2(378, 0, 54, 74)
 [sub_resource type="SpriteFrames" id="SpriteFrames_e21gv"]
 animations = [{
 "frames": [{
-"duration": 4.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_h1jgp")
 }, {
 "duration": 1.0,
@@ -108,7 +108,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"attacking",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -116,7 +116,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -145,27 +145,43 @@ animations = [{
 }],
 "loop": true,
 "name": &"walking",
-"speed": 8.0
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_18qc8"]
 radius = 7.0
 height = 38.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mleyl"]
+size = Vector2(20, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xk6cs"]
+size = Vector2(20, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2qd6m"]
+size = Vector2(33, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bcods"]
+size = Vector2(26, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5hfk7"]
+size = Vector2(63, 27)
+
 [node name="Peasant" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 2
-script = ExtResource("1_7bwv0")
+input_pickable = true
+script = ExtResource("1_ab6jh")
 max_hp = 3
+damage = 2
 walk_speed = 100
 team = 1
-individual = true
-sound_effects = [ExtResource("2_ebv8v"), ExtResource("3_e1rbl"), ExtResource("4_si8kd"), ExtResource("5_ft4ji")]
+attack_sounds = [ExtResource("2_oev1g"), ExtResource("3_xrojm")]
+death_sounds = [ExtResource("2_qhq4d"), ExtResource("3_7w6q0"), ExtResource("4_rbhty"), ExtResource("5_dia5v")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -32)
 sprite_frames = SubResource("SpriteFrames_e21gv")
-animation = &"walking"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -176,7 +192,36 @@ shape = SubResource("CapsuleShape2D_18qc8")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
-[node name="Weapon" parent="." instance=ExtResource("8_hxslm")]
-sound_effects = Array[AudioStream]([ExtResource("2_oev1g"), ExtResource("3_xrojm")])
-damage = 2
-attack_time = 1.0
+[node name="Attack" type="Area2D" parent="."]
+input_pickable = false
+script = ExtResource("4_fjt3c")
+
+[node name="f1-0" type="CollisionShape2D" parent="Attack"]
+position = Vector2(2, -20)
+shape = SubResource("RectangleShape2D_mleyl")
+disabled = true
+
+[node name="f2-0" type="CollisionShape2D" parent="Attack"]
+position = Vector2(18, -29)
+shape = SubResource("RectangleShape2D_xk6cs")
+disabled = true
+
+[node name="f3-0" type="CollisionShape2D" parent="Attack"]
+position = Vector2(30, -17)
+shape = SubResource("RectangleShape2D_2qd6m")
+disabled = true
+
+[node name="f4-0" type="CollisionShape2D" parent="Attack"]
+position = Vector2(25, 9.5)
+shape = SubResource("RectangleShape2D_bcods")
+disabled = true
+
+[node name="f5-0" type="CollisionShape2D" parent="Attack"]
+position = Vector2(1.5, 16.5)
+shape = SubResource("RectangleShape2D_5hfk7")
+disabled = true
+
+[node name="f6-0" type="CollisionShape2D" parent="Attack"]
+position = Vector2(1.5, 16.5)
+shape = SubResource("RectangleShape2D_5hfk7")
+disabled = true

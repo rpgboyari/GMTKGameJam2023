@@ -3,8 +3,8 @@ extends Node2D
 const SHAPE_CAST_OFFSET_X = 16
 const SHAPE_CAST_OFFSET_Y = 16
 
-var smith = preload("res://Scenes/Minions/Smith.tscn")
-var peasant = preload("res://Scenes/Minions/Peasant.tscn")
+var smith = preload("res://Scenes/Entities/Minions/Smith.tscn")
+var peasant = preload("res://Scenes/Entities/Minions/Peasant.tscn")
 @export var thumbnails: Dictionary
 @export var succesful_place_sounds: Array
 @export var failed_place_sounds: Array
