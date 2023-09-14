@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwasfhclu0i3d"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Placement_Dummy.gd" id="1_6oplu"]
+[ext_resource type="Texture2D" uid="uid://bgvw3mivdyut8" path="res://Sprites/Minions/Smith/tankfront.png" id="1_cc1uu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_txb3c"]
+size = Vector2(66, 30)
+
+[node name="Smith_Placement_Dummy" type="Area2D"]
+script = ExtResource("1_6oplu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_txb3c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+texture = ExtResource("1_cc1uu")

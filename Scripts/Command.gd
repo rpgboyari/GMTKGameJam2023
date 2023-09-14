@@ -7,7 +7,7 @@ func execute(delta):
 
 
 
-class Attack_Basic extends Command:
+class Attack_Command extends Command:
 	var _direction
 	func _init(executor, direction):
 		_executor = executor
@@ -16,30 +16,19 @@ class Attack_Basic extends Command:
 	func execute(delta):
 		_executor._attack(_direction, self)
 
-class Walk_Basic extends Command:
+class Walk_Command extends Command:
 	var _direction
 	func _init(executor, direction):
 		_executor = executor
 		_direction = direction
-
+		
 	func execute(delta):
-		print_debug("walking " + str(_direction) + " with delta of " + str(delta))
 		_executor._walk(_direction, delta)
 
-class Walk_Hastened extends Command:
-	var _direction
-	func _init(executor, direction):
-		_executor = executor
-		_direction = direction
-
+class Walk_Hastened extends Walk_Command:
 	func execute(delta):
 		_executor._walk(_direction * 2, delta)
 
-class Walk_Feared extends Command:
-	var _direction
-	func _init(executor, direction):
-		_executor = executor
-		_direction = direction
-
+class Walk_Feared extends Walk_Command:
 	func execute(delta):
 		_executor._walk(_direction * -1, delta)

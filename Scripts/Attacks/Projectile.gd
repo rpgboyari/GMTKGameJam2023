@@ -3,6 +3,8 @@ class_name Projectile extends Area2D
 @export var speed: int
 var damage: int
 var direction: Vector2
+var ground_offset: int
+@onready var sprite: Sprite2D = $Sprite2D
 
 func _ready():
 	body_entered.connect(_on_body_entered)
@@ -11,12 +13,16 @@ func _ready():
 func _physics_process(delta):
 	position += speed * direction * delta
 
-func fire(direction: Vector2):
+func fire(origin: Vector2, direction: Vector2):
 	print_debug("projectile fired")
-	self.direction = direction
-	position = Vector2.ZERO
-	rotation = direction.angle()
-	enable()
+	var offset_vector = Vector2(0, ground_offset)
+	sprite.position = Vector2.ZERO
+#	self.direction = (direction - offset_vector).normalized()
+	self.direction = (direction).normalized()
+	position = origin
+	rotation = self.direction.angle()
+	sprite.global_position += offset_vector
+	enable.call_deferred()
 
 func disable():
 	visible = false
@@ -28,7 +34,7 @@ func enable():
 	
 func _on_impact(impact):
 	print_debug("projectile impacted " + str(impact))
-	disable()
+	disable.call_deferred()
 
 
 func _on_body_entered(body):

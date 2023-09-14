@@ -7,20 +7,13 @@ var _phys_frames_waited: int = 0
 var _current_attack_id
 
 func _ready():
-	super()
 	body_entered.connect(_on_body_entered)
 	for child in get_children():
-		print_debug("testing " + child.name)
 		if child.name.begins_with("f"):
-			print_debug("adding frame...")
 			var frame_number = child.name.unicode_at(1) - 48
-			print_debug("first digit: " + str(frame_number))
 			var second_digit = child.name.unicode_at(2)
 			if second_digit != 45:
-				print_debug("second digit: " + str(second_digit - 48))
 				frame_number = frame_number * 10 + second_digit - 48
-			else: print_debug("no second digit")
-			print_debug("full number: " + str(frame_number))
 			while !(frame_number < frames.size()):
 				frames.append([])
 			frames[frame_number].append(child)
@@ -40,7 +33,7 @@ func _physics_process(delta):
 		_current_frame += 1
 		_enable_frame(_current_frame)
 		_phys_frames_waited = 0
-	elif _buffered_attack && _cooldown_timer.is_stopped():
+	elif _buffered_attack:
 		_begin_attack()
 
 func _enable_frame(frame_index):

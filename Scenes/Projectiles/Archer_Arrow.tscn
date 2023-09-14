@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://7vkql6r0pnqk"]
+[gd_scene load_steps=5 format=3 uid="uid://7vkql6r0pnqk"]
 
 [ext_resource type="Script" path="res://Scripts/Attacks/Projectile.gd" id="1_1vs72"]
 [ext_resource type="Texture2D" uid="uid://b7nr0yav2axk5" path="res://Sprites/Projectiles/arrow.png" id="2_g2ybl"]
+[ext_resource type="Texture2D" uid="uid://c671epwyseg2c" path="res://Sprites/Projectiles/arrow_shadow.png" id="3_5plf5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7pa7k"]
 size = Vector2(15, 3)
 
 [node name="Archer_Arrow" type="Area2D"]
 script = ExtResource("1_1vs72")
-speed = 10
+speed = 300
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_g2ybl")
@@ -16,3 +17,7 @@ texture = ExtResource("2_g2ybl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(7.5, 0.5)
 shape = SubResource("RectangleShape2D_7pa7k")
+
+[node name="Shadow_Sprite" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("3_5plf5")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=9 format=3 uid="uid://dd0t8e7b0gtim"]
+
+[ext_resource type="Script" path="res://Scripts/Minion_Placer.gd" id="1_kmyam"]
+[ext_resource type="AudioStream" uid="uid://b8orn0c0w3l8f" path="res://Sound Effects/Spawns/Spawn_Noise_1.mp3" id="2_0paq0"]
+[ext_resource type="AudioStream" uid="uid://cftqeppqi1wdo" path="res://Sound Effects/Spawns/Spawn_Noise_2.mp3" id="3_nglss"]
+[ext_resource type="AudioStream" uid="uid://b7o5tlhfrindn" path="res://Sound Effects/Spawns/Spawn_Noise_3.mp3" id="4_s55k4"]
+[ext_resource type="AudioStream" uid="uid://byma50alydbuy" path="res://Sound Effects/Spawns/Spawn_Noise_4.mp3" id="5_n0rxf"]
+[ext_resource type="AudioStream" uid="uid://c4ii2wqfpuggx" path="res://Sound Effects/Misc/Little_Blip_Noise.mp3" id="6_mugha"]
+[ext_resource type="PackedScene" uid="uid://cigacawm2thpx" path="res://Scenes/UI/Peasant_Placement_Dummy.tscn" id="7_j02xs"]
+[ext_resource type="PackedScene" uid="uid://cwasfhclu0i3d" path="res://Scenes/UI/Smith_Placement_Dummy.tscn" id="8_5ffb6"]
+
+[node name="Minion_Placer" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_kmyam")
+succesful_place_sounds = [ExtResource("2_0paq0"), ExtResource("3_nglss"), ExtResource("4_s55k4"), ExtResource("5_n0rxf")]
+failed_place_sounds = [ExtResource("6_mugha")]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_mugha")
+
+[node name="Peasant_Placement_Dummy" parent="." instance=ExtResource("7_j02xs")]
+
+[node name="Smith_Placement_Dummy" parent="." instance=ExtResource("8_5ffb6")]

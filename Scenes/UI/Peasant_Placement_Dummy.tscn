@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cigacawm2thpx"]
+
+[ext_resource type="Texture2D" uid="uid://cb4frcextqjha" path="res://Sprites/Minions/Peasant/grunt_front.png" id="1_2bfmd"]
+[ext_resource type="Script" path="res://Scripts/UI/Placement_Dummy.gd" id="1_hy24w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1167k"]
+size = Vector2(38, 14)
+
+[node name="Peasant_Placement_Dummy" type="Area2D"]
+monitorable = false
+script = ExtResource("1_hy24w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1167k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -32)
+texture = ExtResource("1_2bfmd")

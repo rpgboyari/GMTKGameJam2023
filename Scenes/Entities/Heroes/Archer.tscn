@@ -135,8 +135,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iamyp"]
-radius = 9.00986
-height = 58.0
+radius = 7.00997
+height = 37.998
 
 [node name="Archer" type="CharacterBody2D"]
 collision_mask = 2
@@ -144,6 +144,7 @@ motion_mode = 1
 script = ExtResource("1_qqfh4")
 max_hp = 10
 damage = 2
+attack_cooldown = 1.0
 walk_speed = 100
 is_ranged = true
 attack_sounds = [ExtResource("2_dcb1x"), ExtResource("3_3eg5w")]
@@ -156,6 +157,7 @@ animation = &"attacking"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, 0)
 rotation = -1.56045
 shape = SubResource("CapsuleShape2D_iamyp")
 
@@ -168,3 +170,4 @@ avoidance_mask = 2
 script = ExtResource("5_7efri")
 projectile = ExtResource("6_17cru")
 animation_frame_count = 4
+projectile_ground_offset = -32

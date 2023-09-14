@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c5slqc765dknf"]
+[gd_scene load_steps=18 format=3 uid="uid://c5slqc765dknf"]
 
 [ext_resource type="Script" path="res://Scenes/Barb Test/Barbarian test.gd" id="1_hjl1i"]
 [ext_resource type="PackedScene" uid="uid://b1oh4peeh0w7g" path="res://Scenes/Entities/Heroes/Barbarian.tscn" id="2_v0lkg"]
@@ -10,7 +10,15 @@
 [ext_resource type="Script" path="res://Scripts/Projectile_Handler.gd" id="8_eg3bw"]
 [ext_resource type="Texture2D" uid="uid://bgvw3mivdyut8" path="res://Sprites/Minions/Smith/tankfront.png" id="9_6vqau"]
 [ext_resource type="Texture2D" uid="uid://cb4frcextqjha" path="res://Sprites/Minions/Peasant/grunt_front.png" id="10_qakag"]
-[ext_resource type="PackedScene" uid="uid://dd0t8e7b0gtim" path="res://Scenes/UI/Minion_Placer.tscn" id="11_1v8bj"]
+[ext_resource type="Script" path="res://Scripts/Minion_Placer.gd" id="11_d14da"]
+[ext_resource type="AudioStream" uid="uid://b8orn0c0w3l8f" path="res://Sound Effects/Spawns/Spawn_Noise_1.mp3" id="12_vnnop"]
+[ext_resource type="AudioStream" uid="uid://cftqeppqi1wdo" path="res://Sound Effects/Spawns/Spawn_Noise_2.mp3" id="13_54eob"]
+[ext_resource type="AudioStream" uid="uid://b7o5tlhfrindn" path="res://Sound Effects/Spawns/Spawn_Noise_3.mp3" id="14_y7r7l"]
+[ext_resource type="AudioStream" uid="uid://byma50alydbuy" path="res://Sound Effects/Spawns/Spawn_Noise_4.mp3" id="15_2ja0j"]
+[ext_resource type="AudioStream" uid="uid://c4ii2wqfpuggx" path="res://Sound Effects/Misc/Little_Blip_Noise.mp3" id="16_euxoa"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vg320"]
+size = Vector2(32, 32)
 
 [node name="Barbarian test" type="Node2D"]
 y_sort_enabled = true
@@ -86,8 +94,19 @@ grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("10_qakag")
 
-[node name="Minion_Placer" parent="." node_paths=PackedStringArray("world_space") instance=ExtResource("11_1v8bj")]
+[node name="Minion_Placer" type="Node2D" parent="." node_paths=PackedStringArray("world_space")]
+y_sort_enabled = true
+script = ExtResource("11_d14da")
+succesful_place_sounds = [ExtResource("12_vnnop"), ExtResource("13_54eob"), ExtResource("14_y7r7l"), ExtResource("15_2ja0j")]
+failed_place_sounds = [ExtResource("16_euxoa")]
 world_space = NodePath("..")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Minion_Placer"]
+stream = ExtResource("16_euxoa")
+
+[node name="Sprite2D" type="Sprite2D" parent="Minion_Placer"]
+visible = false
+texture = SubResource("PlaceholderTexture2D_vg320")
 
 [connection signal="pressed" from="Control/Spawn_Smith" to="Minion_Placer" method="_on_spawn_smith_pressed"]
 [connection signal="pressed" from="Control/Spawn_Peasant" to="Minion_Placer" method="_on_spawn_peasant_pressed"]
