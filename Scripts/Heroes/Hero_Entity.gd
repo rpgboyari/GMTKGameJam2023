@@ -1,2 +1,0 @@
-extends AI_Entity
-
