@@ -29,6 +29,8 @@ const _BLINK_DURATION = 3
 @export var hurt_sounds: Array
 @export var death_sounds: Array
 
+var hp
+
 var _walk_behaviour = Command.Walk_Command
 var _attack_behaviour = Command.Attack_Command
 var _busy = false
@@ -41,7 +43,6 @@ var _blink_cycle_timer: Timer
 var _blink_count: int
 #var _blink_duration_timer: Timer
 #var _blinking: bool
-var _hp
 
 func _physics_process(delta):
 	if _busy || _disabled || (_cooldown_timer && !_cooldown_timer.is_stopped()):
@@ -55,13 +56,7 @@ func _physics_process(delta):
 		_animation_state = ANIMATION_STATE.IDLE
 
 func _ready():
-#	var collision_shape = $CollisionShape2D
-#	collision_rect = collision_shape.shape.get_rect()
-#	print_debug(str(self) + "'s collision rect is " + str(collision_rect))
-#	collision_rect.position += collision_shape.position
-#	print_debug("updated position of " + str(collision_rect))
-	
-	_hp = max_hp
+	hp = max_hp
 	motion_mode = MOTION_MODE_FLOATING
 	AudioControl.hook_in_sfx_player(audio_player)
 	attack.damage = damage
@@ -90,11 +85,6 @@ func _ready():
 	_blink_cycle_timer.wait_time = _BLINK_SPEED
 	_blink_cycle_timer.timeout.connect(_blink)
 	add_child.call_deferred(_blink_cycle_timer)
-	
-#	_blink_duration_timer = Timer.new()
-#	_blink_duration_timer.one_shot = true
-#	_blink_duration_timer.timeout.connect(_done_blinking)
-#	add_child.call_deferred(_blink_duration_timer)
 
 func _attack(direction, attack_id):
 	_change_facing(direction)
@@ -105,9 +95,7 @@ func _attack(direction, attack_id):
 	if _cooldown_timer:
 		_cooldown_timer.start()
 	attack.start(direction, attack_id)
-	#await get_tree().create_timer(attack_time).timeout
-	#animator.stop()
-	#_animation_state = ANIMATION_STATE.IDLE
+
 func _walk(direction, delta, speed = walk_speed):
 	_change_facing(direction)
 	if _animation_state != ANIMATION_STATE.WALKING:
@@ -154,7 +142,6 @@ func _blink():
 			_stop_blinking()
 
 func _start_blinking():
-	#if _blink_cycle_timer.is_stopped():
 	_blink_cycle_timer.start()
 	_blink_count = 0
 
@@ -166,11 +153,6 @@ func _on_attack_finished():
 	_animation_state = ANIMATION_STATE.IDLE
 	_busy = false
 
-#func _on_body_entered(body):
-#	print_debug(str(body) + "'s weapon hit " + str(self))
-#	if body.has_method("get_damage"):
-#		take_damage(body.get_damage)
-	
 func take_damage(damage, source):
 	if _disabled: return
 	if _damage_source_graces.has(source):
@@ -178,17 +160,15 @@ func take_damage(damage, source):
 	_damage_source_graces[source] = true
 	print_debug(str(self) + " taking " + str(damage) + " damage")
 	_play_random_sound(hurt_sounds)
-	_hp -= damage
-	if _hp <= 0:
+	hp -= damage
+	if hp <= 0:
 		_die()
-	damaged.emit(damage, _hp)
+	damaged.emit(damage, hp)
 	
 	_start_blinking()
 	
 	await get_tree().create_timer(_DAMAGE_GRACE_TIME).timeout
 	_damage_source_graces.erase(source)
-#func get_damage():
-#	return weapon.damage
 
 func give_command(command: Command):
 	assert(!(_command_queue.size() > _MAX_COMMANDS_QUEUED))
@@ -206,7 +186,3 @@ func set_walk_behaviour(command_class):
 	_walk_behaviour = command_class
 func set_attack_behaviour(command_class):
 	_attack_behaviour = command_class
-
-#func spam_command(command: Command):
-#	for i in _MAX_COMMANDS_QUEUED:
-#		give_command(command)

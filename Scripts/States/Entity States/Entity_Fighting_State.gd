@@ -5,11 +5,12 @@ var _target
 
 func _init(params):
 	super(params)
-	assert(params.targeting_info, "tried to put " + str(_entity) + " in fighting state without providing targeting info")
+	assert(params.targeting_value, "tried to put " + str(_entity) + " in fighting state without providing targeting value")
 	_targeting_value = params.targeting_value
 	assert(params.enemies, "tried to put " + str(_entity) + " in fighting state without providing enemies")
 	_enemies = params.enemies
 	_connect_enemy_signals(_enemies)
+	print_debug(str(_entity) + " entered fighting state")
 
 func change_state(state_name, params):
 	if state_name == "fighting":
@@ -18,6 +19,7 @@ func change_state(state_name, params):
 		_connect_enemy_signals(params.enemies)
 		return self
 	else:
+		print_debug(str(_entity) + " leaving fighting state for " + state_name)
 		return super(state_name, params)
 
 func process(delta):
@@ -34,13 +36,14 @@ func process(delta):
 				potential_targets.append(enemy)
 		_target = potential_targets.pick_random()
 		if !_target:
+			print_debug(str(_entity) + " popping out of fighting state")
 			return pop_state()
-		else:
-			_target.dying.connect(func():_target = null)
-	if !_close_to_point(_target.position): #(_target.position - _entity.position).normalized_squared() > _targeting_info.range_squared:
-		change_state("walking", {"destination": _target.position})
-	else:
+	
+	
+	if _close_to_point(_target.position) || _entity.is_ranged:
 		_entity.give_attack_command(_target.position - _entity.position)
+	else:
+		return change_state("walking", {"destination": _target.position})
 	return self
 
 func enter():

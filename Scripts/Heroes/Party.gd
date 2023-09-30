@@ -35,7 +35,7 @@ var _party_targeting_values: Dictionary = {
 	"barbarian":func(enemy): # value enemy nearest to barbarian
 		return _party.barbarian.position.distance_to(enemy.position),
 	"knight":func(enemy): # value deadliest enemy
-		return -enemy.get_damage(),
+		return -enemy.damage,
 	"rogue":func(enemy): # value ranged enemies
 		if enemy.is_ranged:
 			return 0
@@ -60,20 +60,20 @@ func _physics_process(delta):
 	# DETECT ENEMIES
 	var space_state = get_world_2d().direct_space_state
 	var newly_detected_enemies = []
+	var party_center = _party_center()
 	for enemy in _undetected_enemies:
 		var query = PhysicsRayQueryParameters2D.create(
-				global_position, enemy.global_position, 0b10)
+				party_center, enemy.global_position, 0b10)
 		var result = space_state.intersect_ray(query)
-		print_debug("raycast towards " + str(enemy) + " collided with " + str(result.collider))
 		if result.collider == enemy:
 			_detected_enemies.append(enemy)
 			newly_detected_enemies.append(enemy)
 	# enemies detected
 	if !newly_detected_enemies.is_empty():
 		for key in _party:
-			_party_states[key].change_state("fighting", {
+			_party_states[key] = _party_states[key].change_state("fighting", {
 				"enemies":newly_detected_enemies,
-				"targeting_priority":null})
+				"targeting_value":_party_targeting_values[key]})
 		for enemy in newly_detected_enemies:
 			_undetected_enemies.erase(enemy)
 	
@@ -100,17 +100,20 @@ func _take_formation():
 	if _next_path_node >= path_nodes.size():
 		return
 	_party_facing = path_nodes[_next_path_node] - path_nodes[_next_path_node - 1]
-	var party_center = Vector2.ZERO
+	var party_center = _party_center()
 	for key in _party:
-		party_center += _party[key].position
-	party_center /= 4
-	for key in _party:
-		print_debug("destination of " + str(_party[key]) + " equals party center position: " + str(party_center) + " plus adjusted offset of party-member: " + str(_adjusted_offset(key)))
 		_party_states[key] = _party_states[key].change_state("walking", 
 				{"destination":party_center + _adjusted_offset(key)})
 
 func _adjusted_offset(key):
 	return PARTY_OFFSETS[key].rotated(_party_facing.angle())
+
+func _party_center():
+	var party_center = Vector2.ZERO
+	for key in _party:
+		party_center += _party[key].position
+	party_center /= 4
+	return party_center
 
 func _try_drink_potion():
 	if potions > 0:
@@ -129,3 +132,4 @@ func _on_party_member_damaged(damage):
 	hp -= damage
 	if hp <= 0:
 		_try_drink_potion()
+

@@ -1,4 +1,5 @@
 extends "res://Scripts/States/Entity_State.gd"
+const _DODGE_STEP = 16
 var _destination
 var _speed
 var _previous_position = Vector2.ZERO
@@ -39,19 +40,30 @@ func process(delta):
 	var bottom_hit = space_state.intersect_ray(bottom_ray)
 	
 	var direction = _destination - _entity.position
+	if top_hit.is_empty() && bottom_hit.is_empty():
+		_entity.give_walk_command(direction, _speed)
+		return self
+	
+	var hit_direction
 	if top_hit.is_empty() != bottom_hit.is_empty():
-		var hit_direction = top_corner if !top_hit.is_empty() else bottom_corner
-		hit_direction -= _entity.position
-		if direction.y * hit_direction.x > 0: #dodge right
-			direction = Vector2(-direction.y, direction.x)
-		else: #dodge left
-			direction = Vector2(direction.y, -direction.x)
-#	elif !top_hit.is_empty() && !bottom_hit.is_empty():
-#		pass
-	_entity.give_walk_command(direction, _speed)
-
-	#  --AVOIDANCE END--
-	return self
+		hit_direction = top_corner if !top_hit.is_empty() else bottom_corner
+	else:
+		if (_entity.position.distance_squared_to(top_hit.position) < 
+				_entity.position.distance_squared_to(bottom_hit.position)):
+			hit_direction = top_corner
+		else:
+			hit_direction = bottom_corner
+	hit_direction -= _entity.position
+	var dodge_direction
+	if direction.y * hit_direction.x > 0: #dodge right
+		dodge_direction = Vector2(-direction.y, direction.x)
+	else: #dodge left
+		dodge_direction = Vector2(direction.y, -direction.x)
+	var dodge_destination = _entity.position + (dodge_direction.normalized() * _DODGE_STEP)
+	print_debug(str(_entity) + " dodging to " + str(dodge_destination))
+	return change_state("walking", 
+			{"destination":dodge_destination,
+			"speed":_speed})
 
 func pop_state():
 	_previous._reentry_position = _entity.position

@@ -46,7 +46,7 @@ func exit():
 	_reentry_position = _entity.position
 
 func pop_state():
-#	print_debug("popping state! from " + str(_entity))
+	print_debug("popping state! from " + str(_entity))
 	assert(_previous, "tried popping out of the bottom-most state")
 	exit()
 	return _previous.enter()

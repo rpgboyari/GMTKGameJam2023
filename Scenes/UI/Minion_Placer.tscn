@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cwasfhclu0i3d" path="res://Scenes/UI/Smith_Placement_Dummy.tscn" id="8_5ffb6"]
 
 [node name="Minion_Placer" type="Node2D"]
-y_sort_enabled = true
+z_index = 2
 script = ExtResource("1_kmyam")
 succesful_place_sounds = [ExtResource("2_0paq0"), ExtResource("3_nglss"), ExtResource("4_s55k4"), ExtResource("5_n0rxf")]
 failed_place_sounds = [ExtResource("6_mugha")]
