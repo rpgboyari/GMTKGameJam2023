@@ -20,7 +20,7 @@ func _process(delta):
 		var attack_direction = Vector2.ZERO
 		if player.is_ranged:
 			attack_direction = (get_viewport().get_mouse_position() - player.position)
-		player.give_command(player.attack_behaviour.new(player, attack_direction))
+		player.give_attack_command(attack_direction)#player.attack_behaviour.new(player, attack_direction))
 	var move_direction = Vector2.ZERO
 	if Input.is_action_pressed("Move_Down"):
 		move_direction += Vector2.DOWN
@@ -32,7 +32,7 @@ func _process(delta):
 		move_direction += Vector2.UP
 	if move_direction != Vector2.ZERO:
 		move_direction = move_direction
-		player.give_command(player.walk_behaviour.new(player, move_direction))
+		player.give_walk_command(move_direction)#player.walk_behaviour.new(player, move_direction))
 	if Input.is_action_just_pressed("Music_Up"):
 		AudioControl.turn_up_music()
 	if Input.is_action_just_pressed("Music_Down"):

@@ -60,6 +60,7 @@ func _on_spawn_smith_pressed():
 
 func new_choice():
 	placing = true
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	active_dummy.enable()
 
 func play_random_sound(sound_array):
@@ -70,4 +71,5 @@ func play_random_sound(sound_array):
 
 func unset_choice():
 	placing = false
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	active_dummy.disable()

@@ -1,4 +1,4 @@
-extends AI_Entity
+extends Entity
 
 @export var damage_negation: int
 
@@ -6,9 +6,6 @@ extends AI_Entity
 #	super()
 #	Globals.heroes["knight"] = self
 
-func enemy_value(enemy): # targets the deadliest enemy
-	return -enemy.get_damage()
-
-func take_damage(damage):
+func take_damage(damage, source):
 	damage = max(damage - damage_negation, 0)
-	super(damage)
+	super(damage, source)

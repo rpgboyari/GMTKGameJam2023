@@ -1,6 +1,6 @@
 [gd_scene load_steps=33 format=3 uid="uid://cyav7cb3i21f4"]
 
-[ext_resource type="Script" path="res://Scripts/Entity.gd" id="1_mkbd7"]
+[ext_resource type="Script" path="res://Scripts/Heroes/Knight.gd" id="1_6tfu5"]
 [ext_resource type="Texture2D" uid="uid://cntdsa38nqpjq" path="res://Sprites/Heroes/Knight/kinght.png" id="2_24bu0"]
 [ext_resource type="AudioStream" uid="uid://c7e3qtx5p7823" path="res://Sound Effects/Attacks/Knight/Slash_1.mp3" id="2_hdlpb"]
 [ext_resource type="AudioStream" uid="uid://bq50ittplufpe" path="res://Sound Effects/Attacks/Knight/Slash_2.mp3" id="3_8prdp"]
@@ -121,9 +121,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nbtgq"]
-radius = 8.98146
-height = 38.05
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2tbqy"]
+size = Vector2(38, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gcftv"]
 size = Vector2(21, 32)
@@ -146,7 +145,8 @@ size = Vector2(17, 31)
 [node name="Knight" type="CharacterBody2D"]
 collision_mask = 2
 motion_mode = 1
-script = ExtResource("1_mkbd7")
+script = ExtResource("1_6tfu5")
+damage_negation = 1
 max_hp = 10
 damage = 2
 walk_speed = 80
@@ -154,16 +154,14 @@ attack_sounds = [ExtResource("2_hdlpb"), ExtResource("3_8prdp"), ExtResource("4_
 hurt_sounds = [ExtResource("5_2ycni"), ExtResource("6_eeul2"), ExtResource("7_o8qh2")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, -26)
+position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_swdet")
 animation = &"idle"
 autoplay = "idle"
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3.8147e-06)
-rotation = -1.50659
-shape = SubResource("CapsuleShape2D_nbtgq")
+shape = SubResource("RectangleShape2D_2tbqy")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_mask = 2

@@ -9,6 +9,7 @@ enum TEAM {HERO, VILLAIN}
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var animator: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack: Attack = $Attack
+@onready var collision_rect: Rect2 = $CollisionShape2D.shape.get_rect()
 
 const _MAX_COMMANDS_QUEUED = 1
 const _DAMAGE_GRACE_TIME = 2
@@ -28,9 +29,8 @@ const _BLINK_DURATION = 3
 @export var hurt_sounds: Array
 @export var death_sounds: Array
 
-var walk_behaviour = Command.Walk_Command
-var attack_behaviour = Command.Attack_Command
-
+var _walk_behaviour = Command.Walk_Command
+var _attack_behaviour = Command.Attack_Command
 var _busy = false
 var _disabled: bool = false
 var _command_queue: Array[Command]
@@ -55,6 +55,12 @@ func _physics_process(delta):
 		_animation_state = ANIMATION_STATE.IDLE
 
 func _ready():
+#	var collision_shape = $CollisionShape2D
+#	collision_rect = collision_shape.shape.get_rect()
+#	print_debug(str(self) + "'s collision rect is " + str(collision_rect))
+#	collision_rect.position += collision_shape.position
+#	print_debug("updated position of " + str(collision_rect))
+	
 	_hp = max_hp
 	motion_mode = MOTION_MODE_FLOATING
 	AudioControl.hook_in_sfx_player(audio_player)
@@ -102,12 +108,13 @@ func _attack(direction, attack_id):
 	#await get_tree().create_timer(attack_time).timeout
 	#animator.stop()
 	#_animation_state = ANIMATION_STATE.IDLE
-func _walk(direction, delta):
+func _walk(direction, delta, speed = walk_speed):
 	_change_facing(direction)
 	if _animation_state != ANIMATION_STATE.WALKING:
 		animator.play("walking")
 		_animation_state = ANIMATION_STATE.WALKING
-	velocity = direction.normalized() * walk_speed
+	velocity = direction if direction.length_squared() <= 1 else direction.normalized()
+	velocity *= speed
 	move_and_slide()
 
 func _die():
@@ -117,6 +124,7 @@ func _die():
 	animator.play("idle")
 	_disabled = true
 	_play_random_sound(death_sounds)
+	collision_layer = 0
 	audio_player.finished.connect(queue_free)
 	dying.emit(self)
 	_start_blinking()
@@ -190,6 +198,14 @@ func give_command(command: Command):
 		else:
 			return
 	_command_queue.push_back(command)
+func give_walk_command(direction: Vector2, speed = false):
+	give_command(_walk_behaviour.new(self, direction, speed))
+func give_attack_command(direction: Vector2):
+	give_command(_attack_behaviour.new(self, direction))
+func set_walk_behaviour(command_class):
+	_walk_behaviour = command_class
+func set_attack_behaviour(command_class):
+	_attack_behaviour = command_class
 
 #func spam_command(command: Command):
 #	for i in _MAX_COMMANDS_QUEUED:

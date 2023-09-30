@@ -18,12 +18,18 @@ class Attack_Command extends Command:
 
 class Walk_Command extends Command:
 	var _direction
-	func _init(executor, direction):
+	var _speed
+	func _init(executor, direction, speed = false):
 		_executor = executor
 		_direction = direction
+		_speed = speed
 		
 	func execute(delta):
-		_executor._walk(_direction, delta)
+		if _speed:
+			_executor._walk(_direction, delta, _speed)
+		else:
+			_executor._walk(_direction, delta)
+		
 
 class Walk_Hastened extends Walk_Command:
 	func execute(delta):

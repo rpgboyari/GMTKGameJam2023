@@ -134,9 +134,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iamyp"]
-radius = 7.00997
-height = 37.998
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ykpt1"]
+size = Vector2(34, 12)
 
 [node name="Archer" type="CharacterBody2D"]
 collision_mask = 2
@@ -151,15 +150,14 @@ attack_sounds = [ExtResource("2_dcb1x"), ExtResource("3_3eg5w")]
 hurt_sounds = [ExtResource("4_bfo44"), ExtResource("5_eajj5")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -24)
+position = Vector2(6, -24)
 sprite_frames = SubResource("SpriteFrames_3qgrh")
-animation = &"attacking"
+animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.95741
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-6, 0)
-rotation = -1.56045
-shape = SubResource("CapsuleShape2D_iamyp")
+shape = SubResource("RectangleShape2D_ykpt1")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_mask = 2

@@ -188,9 +188,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4bqcq"]
-radius = 6.99003
-height = 42.0469
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6lonu"]
+size = Vector2(42, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nt46a"]
 size = Vector2(13, 40)
@@ -211,8 +210,7 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = -1.62416
-shape = SubResource("CapsuleShape2D_4bqcq")
+shape = SubResource("RectangleShape2D_6lonu")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_mask = 2
