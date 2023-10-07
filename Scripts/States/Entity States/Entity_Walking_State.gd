@@ -1,18 +1,29 @@
 extends "res://Scripts/States/Entity_State.gd"
 const _DODGE_STEP = 16
+#var _destination
+var _path
+var _progress
 var _destination
 var _speed
 var _previous_position = Vector2.ZERO
 
 func _init(params):
 	super(params)
-	assert(params.destination, "tried to put " + str(_entity) + " in walking state without providing a destination")
-	_destination = params.destination
+#	assert(params.destination, "tried to put " + str(_entity) + " in walking state without providing a destination")
+#	_destination = params.destination
+	assert(params.path, "tried to put " + str(_entity) + " in walking state without providing a path")
+	_path = params.path
+	_progress = 0
+	_destination = _path[_progress]
 	_speed = params.speed if params.has("speed") else false
 
 func process(delta):
 	if _close_to_point(_destination):
-		return pop_state()
+		_progress += 1
+		if _progress == _path.size():
+			return pop_state()
+		else:
+			_destination = _path[_progress]
 	
 	var distance_moved = (_previous_position - _entity.position).length_squared()
 	if distance_moved < 0.1: #entity didn't move last frame

@@ -1,6 +1,6 @@
 extends Node2D
 
-const ENTITY_STATE = preload("res://Scripts/States/Entity_State.gd")
+#const ENTITY_STATE = preload("res://Scripts/States/Entity_State.gd")
 const PARTY_SPACING = 30
 const PARTY_OFFSETS = {
 	"archer":Vector2(-PARTY_SPACING, -PARTY_SPACING),
@@ -16,6 +16,7 @@ var hp = max_hp
 var potions = max_potions
 @export var group_travel_speed: int
 @export var path_nodes: Array[Vector2]
+@export var map: TileMap
 
 @onready var _party: Dictionary = {
 	"archer":$Archer, "barbarian":$Barbarian,
@@ -23,10 +24,10 @@ var potions = max_potions
 }
 
 @onready var _party_states: Dictionary = {
-	"archer":ENTITY_STATE.IDLE_STATE.new({"entity":_party.archer, "previous":null}),
-	"barbarian":ENTITY_STATE.IDLE_STATE.new({"entity":_party.barbarian, "previous":null}),
-	"knight":ENTITY_STATE.IDLE_STATE.new({"entity":_party.knight, "previous":null}),
-	"rogue":ENTITY_STATE.IDLE_STATE.new({"entity":_party.rogue, "previous":null})
+	"archer":Entity_State.IDLE_STATE.new({"entity":_party.archer, "previous":null, "map":map}),
+	"barbarian":Entity_State.IDLE_STATE.new({"entity":_party.barbarian, "previous":null, "map":map}),
+	"knight":Entity_State.IDLE_STATE.new({"entity":_party.knight, "previous":null, "map":map}),
+	"rogue":Entity_State.IDLE_STATE.new({"entity":_party.rogue, "previous":null, "map":map})
 }
 
 var _party_targeting_values: Dictionary = {
@@ -65,7 +66,7 @@ func _physics_process(delta):
 		var query = PhysicsRayQueryParameters2D.create(
 				party_center, enemy.global_position, 0b10)
 		var result = space_state.intersect_ray(query)
-		if result.collider == enemy:
+		if !result.is_empty() && result.collider == enemy:
 			_detected_enemies.append(enemy)
 			newly_detected_enemies.append(enemy)
 	# enemies detected
@@ -80,7 +81,7 @@ func _physics_process(delta):
 	var idle_members = 0
 	for key in _party:
 		_party_states[key] = _party_states[key].process(delta)
-		if _party_states[key] is ENTITY_STATE.IDLE_STATE:
+		if _party_states[key] is Entity_State.IDLE_STATE:
 			idle_members += 1
 	if idle_members == 4:
 		if !_in_formation:

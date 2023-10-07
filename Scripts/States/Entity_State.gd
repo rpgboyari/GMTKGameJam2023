@@ -1,15 +1,18 @@
-#extends "res://Scripts/States/State.gd"
+class_name Entity_State#extends "res://Scripts/States/State.gd"
 const IDLE_STATE = preload("res://Scripts/States/Entity States/Entity_Idle_State.gd")
 const WALKING_STATE = preload("res://Scripts/States/Entity States/Entity_Walking_State.gd")
 const FIGHTING_STATE = preload("res://Scripts/States/Entity States/Entity_Fighting_State.gd")
 const LOOTING_STATE = preload("res://Scripts/States/Entity States/Entity_Looting_State.gd")
-var _entity
-var _previous
-var _reentry_position
+var _entity: Entity
+var _map: TileMap
+var _previous: Entity_State
+var _reentry_position: Vector2
 
 func _init(params):
 	assert(params.entity, "tried to initialize an entity state without providing an entity")
 	_entity = params.entity
+	assert(params.map, "tried to initialize an entity state without providing a map")
+	_map = params.map
 	#assert(params.previous, "tried to put " + str(_entity) + " in a new state without providing previous state")
 	_previous = params.previous
 
@@ -17,6 +20,7 @@ func change_state(state_name, params):
 #	print_debug(str(_entity) + " changing state to " + state_name)
 	exit()
 	params.entity = _entity
+	params.map = _map
 	params.previous = self
 	var new_state
 	match state_name:
@@ -53,3 +57,6 @@ func pop_state():
 
 func _close_to_point(point, delta = Global_Constants.PHYS_FRAME_DELTA):
 	return (point - _entity.position).length_squared() < (_entity.walk_speed * delta)**2
+
+func _walkable(tile_coords):
+	return _map.get_cell_tile_data(0, tile_coords).get_meta("walkable")

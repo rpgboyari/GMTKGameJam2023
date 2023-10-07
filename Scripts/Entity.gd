@@ -153,6 +153,11 @@ func _on_attack_finished():
 	_animation_state = ANIMATION_STATE.IDLE
 	_busy = false
 
+func get_map_position():
+	var x = int(position.x / Global_Constants.TILE_WIDTH_PIXELS)
+	var y = int(position.y / Global_Constants.TILE_HEIGHT_PIXELS)
+	return Vector2i(x, y)
+
 func take_damage(damage, source):
 	if _disabled: return
 	if _damage_source_graces.has(source):

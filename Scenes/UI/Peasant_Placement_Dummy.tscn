@@ -7,7 +7,6 @@
 size = Vector2(38, 14)
 
 [node name="Peasant_Placement_Dummy" type="Area2D"]
-monitorable = false
 script = ExtResource("1_hy24w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
