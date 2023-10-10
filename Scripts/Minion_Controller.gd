@@ -7,7 +7,7 @@ func _process(delta):
 	if !player: return
 	if Input.is_action_just_pressed("Attack"):
 		var attack_direction = Vector2.ZERO
-		if player.is_ranged:
+		if player.range > 0:
 			attack_direction = (get_viewport().get_mouse_position() - player.position)
 		player.give_attack_command(attack_direction)#player.attack_behaviour.new(player, attack_direction))
 	var move_direction = Vector2.ZERO

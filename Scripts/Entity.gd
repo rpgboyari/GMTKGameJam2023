@@ -1,6 +1,6 @@
 class_name Entity extends CharacterBody2D
 
-signal damaged(damage, _hp)
+signal damaged(damage, hp)
 signal dying(entity)
 
 enum ANIMATION_STATE {WALKING, ATTACKING, IDLE}
@@ -23,7 +23,7 @@ const _BLINK_DURATION = 3
 @export var walk_speed: int
 
 @export_category("unit data")
-@export var is_ranged: bool
+@export var range: int = 0
 @export var team: TEAM
 @export var attack_sounds: Array
 @export var hurt_sounds: Array
@@ -71,15 +71,15 @@ func _ready():
 	
 	match team:
 		TEAM.HERO:
-			collision_layer = 0b01
-			collision_mask = 0b10
-			attack.collision_layer = 0b01
-			attack.collision_mask = 0b10
+			collision_layer = 0b001
+			collision_mask = 0b100
+			attack.collision_layer = 0b001
+			attack.collision_mask = 0b010
 		TEAM.VILLAIN:
-			collision_layer = 0b10
-			collision_mask = 0b01
-			attack.collision_layer = 0b10
-			attack.collision_mask = 0b01
+			collision_layer = 0b010
+			collision_mask = 0b100
+			attack.collision_layer = 0b010
+			attack.collision_mask = 0b001
 	
 	_blink_cycle_timer = Timer.new()
 	_blink_cycle_timer.wait_time = _BLINK_SPEED
@@ -106,8 +106,6 @@ func _walk(direction, delta, speed = walk_speed):
 	move_and_slide()
 
 func _die():
-	print_debug(str(self) + " dying")
-	
 	attack.cancel()
 	animator.play("idle")
 	_disabled = true
@@ -153,17 +151,11 @@ func _on_attack_finished():
 	_animation_state = ANIMATION_STATE.IDLE
 	_busy = false
 
-func get_map_position():
-	var x = int(position.x / Global_Constants.TILE_WIDTH_PIXELS)
-	var y = int(position.y / Global_Constants.TILE_HEIGHT_PIXELS)
-	return Vector2i(x, y)
-
 func take_damage(damage, source):
 	if _disabled: return
 	if _damage_source_graces.has(source):
 		return
 	_damage_source_graces[source] = true
-	print_debug(str(self) + " taking " + str(damage) + " damage")
 	_play_random_sound(hurt_sounds)
 	hp -= damage
 	if hp <= 0:

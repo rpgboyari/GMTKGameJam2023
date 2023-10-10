@@ -262,6 +262,7 @@ script = ExtResource("1_3swfl")
 max_hp = 14
 damage = 2
 walk_speed = 100
+range = 64
 attack_sounds = [ExtResource("2_bdh7r"), ExtResource("3_m2dyh")]
 hurt_sounds = [ExtResource("4_wym4d"), ExtResource("5_742r4")]
 

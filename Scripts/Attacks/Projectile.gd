@@ -14,7 +14,6 @@ func _physics_process(delta):
 	position += speed * direction * delta
 
 func fire(origin: Vector2, direction: Vector2):
-	print_debug("projectile fired")
 	var offset_vector = Vector2(0, ground_offset)
 	sprite.position = Vector2.ZERO
 #	self.direction = (direction - offset_vector).normalized()
@@ -33,7 +32,6 @@ func enable():
 	process_mode = PROCESS_MODE_INHERIT
 	
 func _on_impact(impact):
-	print_debug("projectile impacted " + str(impact))
 	disable.call_deferred()
 
 

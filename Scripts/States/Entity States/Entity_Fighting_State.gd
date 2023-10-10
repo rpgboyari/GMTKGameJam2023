@@ -24,6 +24,7 @@ func change_state(state_name, params):
 
 func process(delta):
 	if _enemies.is_empty():
+		print(str(_entity) + " done fighing")
 		return pop_state()
 	else:
 		_choose_target()
@@ -31,21 +32,44 @@ func process(delta):
 	if _target_in_range():
 		_entity.give_attack_command(_target.position - _entity.position)
 	else:
-		return change_state("walking", {"destination": _target.position})
+		var destination
+		if _entity.range > 0:
+			destination = _target.position
+		else:
+			var target_right_side = _target_right_side()
+			var target_left_side = _target_left_side()
+			var right_side_distance = (target_right_side - _entity.position).length()
+			var left_side_distance = (target_left_side - _entity.position).length()
+			if right_side_distance < left_side_distance:
+				destination = target_right_side
+			else:
+				destination = target_left_side
+		
+		return change_state("walking", {"destination":destination, "max_distance":3})#.process(delta)
 	return self
 
 func enter():
 	return self
 
+func _target_left_side():
+	return _target.position - Vector2(_entity.collision_rect.size.x / 2 +
+			_target.collision_rect.size.x / 2 + 2, 0)
+func _target_right_side():
+	return _target.position + Vector2(_entity.collision_rect.size.x / 2 +
+			_target.collision_rect.size.x / 2 + 2, 0)
+
 func _target_in_range() -> bool:
-	if !_entity.is_ranged:
-		return _close_to_point(_target.position)
-	else:
+	if _entity.range > 0:
+		if (_target.position - _entity.position).length() > _entity.range:
+			return false
 		var space_state = _entity.get_world_2d().direct_space_state
 		var query = PhysicsRayQueryParameters2D.create(
 				_entity.position, _target.global_position, 0b10)
 		var result = space_state.intersect_ray(query)
 		return !result.is_empty() && result.collider == _target
+	else:
+		return (_close_to_point(_target_left_side(), 12) || 
+				_close_to_point(_target_right_side(), 12))
 
 func _choose_target():
 	var new_target
@@ -69,3 +93,8 @@ func _on_enemy_dying(enemy):
 	_enemies.erase(enemy)
 	if _target == enemy:
 		_target = null
+
+func pop_state():
+	if _previous is WALKING_STATE:
+		print(str(_entity) + " leaving a fighing state for a walking state")
+	return super()

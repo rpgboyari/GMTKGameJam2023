@@ -1,6 +1,7 @@
 class_name Entity_State#extends "res://Scripts/States/State.gd"
 const IDLE_STATE = preload("res://Scripts/States/Entity States/Entity_Idle_State.gd")
 const WALKING_STATE = preload("res://Scripts/States/Entity States/Entity_Walking_State.gd")
+const DIRECT_WALKING_STATE = preload("res://Scripts/States/Entity States/Entity_Direct_Walking_State.gd")
 const FIGHTING_STATE = preload("res://Scripts/States/Entity States/Entity_Fighting_State.gd")
 const LOOTING_STATE = preload("res://Scripts/States/Entity States/Entity_Looting_State.gd")
 var _entity: Entity
@@ -13,11 +14,9 @@ func _init(params):
 	_entity = params.entity
 	assert(params.map, "tried to initialize an entity state without providing a map")
 	_map = params.map
-	#assert(params.previous, "tried to put " + str(_entity) + " in a new state without providing previous state")
 	_previous = params.previous
 
 func change_state(state_name, params):
-#	print_debug(str(_entity) + " changing state to " + state_name)
 	exit()
 	params.entity = _entity
 	params.map = _map
@@ -30,6 +29,8 @@ func change_state(state_name, params):
 			new_state = LOOTING_STATE.new(params)
 		"walking":
 			new_state = WALKING_STATE.new(params)
+		"direct_walking":
+			new_state = DIRECT_WALKING_STATE.new(params)
 		"idle":
 			new_state = IDLE_STATE.new(params)
 		_:
@@ -40,8 +41,12 @@ func process(delta):
 	return self
 
 func enter():
+	return self
+
+func reenter():
 	if _reentry_position && !_close_to_point(_reentry_position):
-		var new_state = WALKING_STATE.new({"entity":_entity, "previous":self, "destination":_reentry_position})
+		print(str(_entity) + " returning to " +  str(_reentry_position))
+		var new_state = WALKING_STATE.new({"map":_map, "entity":_entity, "previous":self, "destination":_reentry_position})
 		return new_state.enter()
 	else:
 		return self
@@ -50,13 +55,13 @@ func exit():
 	_reentry_position = _entity.position
 
 func pop_state():
-	print_debug("popping state! from " + str(_entity))
 	assert(_previous, "tried popping out of the bottom-most state")
 	exit()
-	return _previous.enter()
+	return _previous.reenter()
 
-func _close_to_point(point, delta = Global_Constants.PHYS_FRAME_DELTA):
-	return (point - _entity.position).length_squared() < (_entity.walk_speed * delta)**2
+func _close_to_point(point, error = 0):
+	return (point - _entity.position).length_squared() < (
+			_entity.walk_speed * Global_Constants.PHYS_FRAME_DELTA + error)**2
 
 func _walkable(tile_coords):
 	return _map.get_cell_tile_data(0, tile_coords).get_meta("walkable")

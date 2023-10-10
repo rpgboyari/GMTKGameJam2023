@@ -46,14 +46,12 @@ func _physics_process(delta):
 		position = get_global_mouse_position()
 
 func _on_spawn_peasant_pressed():
-	print_debug("spawn_peasant pressed")
 	active_choice = peasant
 	active_dummy = peasant_dummy
 	new_choice()
 
 
 func _on_spawn_smith_pressed():
-	print_debug("spawn_smith pressed")
 	active_choice = smith
 	active_dummy = smith_dummy
 	new_choice()

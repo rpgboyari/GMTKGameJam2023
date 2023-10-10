@@ -143,9 +143,9 @@ motion_mode = 1
 script = ExtResource("1_qqfh4")
 max_hp = 10
 damage = 2
-attack_cooldown = 1.0
+attack_cooldown = 2.0
 walk_speed = 100
-is_ranged = true
+range = 9999
 attack_sounds = [ExtResource("2_dcb1x"), ExtResource("3_3eg5w")]
 hurt_sounds = [ExtResource("4_bfo44"), ExtResource("5_eajj5")]
 

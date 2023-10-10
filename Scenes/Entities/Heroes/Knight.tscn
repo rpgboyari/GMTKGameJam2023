@@ -149,6 +149,7 @@ script = ExtResource("1_6tfu5")
 damage_negation = 1
 max_hp = 10
 damage = 2
+attack_cooldown = 2.0
 walk_speed = 80
 attack_sounds = [ExtResource("2_hdlpb"), ExtResource("3_8prdp"), ExtResource("4_6acqk")]
 hurt_sounds = [ExtResource("5_2ycni"), ExtResource("6_eeul2"), ExtResource("7_o8qh2")]

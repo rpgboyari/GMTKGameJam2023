@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://c63yi22rnmns0"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Health_Bar.gd" id="1_x1ouj"]
+
+[node name="Health_Bar" type="ColorRect"]
+anchors_preset = -1
+anchor_right = 0.174
+anchor_bottom = 0.075
+offset_right = -0.447983
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0745098, 0, 0, 1)
+script = ExtResource("1_x1ouj")
+
+[node name="Health_Bar_Empty" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+
+[node name="Health_Bar_Fill" type="ColorRect" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+color = Color(1, 0.0745098, 0.168627, 1)

@@ -56,6 +56,5 @@ func _end_attack():
 	_disable_frame(_current_frame)
 
 func _on_body_entered(body):
-	print_debug(str(body) + "'s weapon hit " + str(self))
 	if body.has_method("take_damage"):
 		body.take_damage(damage, _current_attack_id)#.get_rid().get_id())

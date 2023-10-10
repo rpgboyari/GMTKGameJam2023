@@ -1,7 +1,9 @@
 extends Node2D
 
+signal party_health_changed(value, old)
+
 #const ENTITY_STATE = preload("res://Scripts/States/Entity_State.gd")
-const PARTY_SPACING = 30
+const PARTY_SPACING = 24
 const PARTY_OFFSETS = {
 	"archer":Vector2(-PARTY_SPACING, -PARTY_SPACING),
 	"barbarian":Vector2(PARTY_SPACING, -PARTY_SPACING),
@@ -10,11 +12,14 @@ const PARTY_OFFSETS = {
 }
 const _MARCH_SPEED = 80
 
+@export_category("stats")
 @export var max_hp: int
-var hp = max_hp
+@onready var hp = max_hp
 @export var max_potions: int
-var potions = max_potions
+@onready var potions = max_potions
 @export var group_travel_speed: int
+
+@export_category("level data")
 @export var path_nodes: Array[Vector2]
 @export var map: TileMap
 
@@ -38,10 +43,7 @@ var _party_targeting_values: Dictionary = {
 	"knight":func(enemy): # value deadliest enemy
 		return -enemy.damage,
 	"rogue":func(enemy): # value ranged enemies
-		if enemy.is_ranged:
-			return 0
-		else:
-			return 1,
+		return -enemy.range
 }
 
 var _next_path_node: int
@@ -52,7 +54,7 @@ var _detected_enemies: Array = []
 
 func _ready():
 	for key in _party:
-		_party[key].damaged.connect(_on_party_member_damaged)
+		_party[key].damaged.connect(func(damage, hp): _on_party_member_damaged(damage, _party[key]))
 		_party[key].position = path_nodes[0]
 	_next_path_node = 1
 	_take_formation()
@@ -118,6 +120,7 @@ func _party_center():
 
 func _try_drink_potion():
 	if potions > 0:
+		emit_signal("party_health_changed", max_hp, hp)
 		potions -= 1
 		hp = max_hp
 
@@ -129,7 +132,9 @@ func _on_enemy_dying(enemy):
 	_undetected_enemies.erase(enemy)
 	_detected_enemies.erase(enemy)
 
-func _on_party_member_damaged(damage):
+func _on_party_member_damaged(damage, member):
+	emit_signal("party_health_changed", hp - damage, hp)
+	member.hp = member.max_hp
 	hp -= damage
 	if hp <= 0:
 		_try_drink_potion()
